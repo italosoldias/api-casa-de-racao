@@ -1,14 +1,13 @@
+const Item = require('./ClassItem.js')
 
 
-
-class Racao {
-    constructor(fabricante, sabor, validade, precoDaCompra, tipo, id){
-        this.fabricante = fabricante;
+class Racao extends Item {
+    constructor(_id,descricao,  valorCompra, marca, categoria, sabor, validade,  tipo){
+        super(_id, descricao,  valorCompra, marca,  categoria) 
         this.sabor = sabor;
         this.validade = validade
-        this.precoDaCompra = precoDaCompra 
         this.tipo = tipo
-        this.id = id
+       
         
        
        
@@ -17,6 +16,6 @@ class Racao {
     
 }
 
-
+console.log(Racao)
 
 module.exports = Racao

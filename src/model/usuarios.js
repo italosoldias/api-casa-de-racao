@@ -1,7 +1,7 @@
-const mongoose = require('../database/schema.js');
-
+const mongoose = require('mongoose');
+const Usuario = require('../class/Usuarios.js')
 //const racaoDB = racao
-
+//definindo o modelo da colection
 const UsuarioSchema = new mongoose.Schema ({
     
         nome : {
@@ -30,11 +30,13 @@ const UsuarioSchema = new mongoose.Schema ({
     
 })
 
-const Usuario = mongoose.model('Usuario', UsuarioSchema);
+// objeto q representa os dados
+UsuarioSchema.loadClass(Usuario);
+const UsuarioModel = mongoose.model('Usuario', UsuarioSchema);
 
 
 
-Usuario.find({email : "italo@email3.com"})
 
 
-module.exports = Usuario;
+
+module.exports = UsuarioModel;

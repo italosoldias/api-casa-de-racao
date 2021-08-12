@@ -1,13 +1,14 @@
-const { model } = require("mongoose");
+
+const RacaoBancoMongo = require('../database/schemaRacao.js')
 
 class RacaoService {
     
     constructor(){
-        this.racoes = [];
+        this.racoes = new RacaoBancoMongo()
     };
 
     addRacao(racao){
-        this.racoes.push(racao)
+        this.racoes.addRacao(racao)
     };
 
     excluiRacao(id){
@@ -21,7 +22,7 @@ class RacaoService {
     };
 
     buscarTodasRacoes(){
-        return this.racoes
+        return this.racoes.buscarTodasRacoes()
     };
 
 }

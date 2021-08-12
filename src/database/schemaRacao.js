@@ -1,29 +1,32 @@
-const mongoose = require('./schema.js');
-const racao = require('../class/ClassRacao.js');
-//const racaoDB = racao
+const mongoose = require('mongoose');
+const ModeloRacao = require('../model/modeloRacao.js')
 
-const RacaoSchema = new mongoose.Schema ({
+
+class RacaoBancoMongo{
     
-        fabricante : {
-            type : String,
-            required : true,
-        },
-        sabor : {
-            type : String,
-            required : true,
-        },
-        
-        preco : {
-            type : Number,
-            required : true,
-        },
-        tipo : {
-            type : Number,
-            required : true,
-        }
-    
-})
+    constructor(){
+        this.model =  ModeloRacao
+    };
 
-const RacaoDB = mongoose.model('RacaoDB', RacaoSchema);
+    addRacao(racao){
+        this.model.create(racao)
+    };
 
-module.exports = RacaoDB;
+    excluiRacao(id){
+       
+
+    };
+
+    alterarRacao(racao){
+
+    };
+
+    buscarTodasRacoes(){
+        const consulta = this.model.find({})
+        const promise = consulta.exec()
+        return promise
+    };
+
+}
+
+module.exports = RacaoBancoMongo
