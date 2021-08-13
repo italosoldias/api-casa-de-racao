@@ -1,34 +1,37 @@
 const express = require('express');
-const router= express.Router(); 
-//const Usuario = require('../model/usuarios.js');
-const UsuarioClasse = require('../class/Usuarios.js');
-const UsuarioService = require('../service/serviceUsuario.js');
-
-
-const usuarioService = new UsuarioService()
-
-router.get('/usuario', async function (req, res) {
-    const usuariosRetornados = await usuarioService.buscarTodosUsuarios()
-    console.log(usuariosRetornados)
-
-    res.json( usuariosRetornados)
-})
-
-router.post('/usuario', async function (req, res){
-    let usuarioLT = new UsuarioClasse(req.body.nome, req.body.email, req.body.senha, req.body.dataDeCriacao)
-    usuarioService.addUsuario(usuarioLT)
-    res.json(usuarioLT)
-})
-
-router.put('/usuario', async function (req , res){
  
-    usuarioService.alterarUsuario(req.body)
-    res.send('mudou')
-})
+//const Usuario = require('../model/usuarios.js');
+const UsuarioControler = require('../controladores/ControladorUsuario.js')
 
-router.delete('/usuario', async function (req, res){
-    usuarioService.excluirUsuario(req.body.email)
-    res.send('excluido com sucesso ')
-})
 
-module.exports = router
+
+class UsuarioRotas{
+
+    constructor(){
+        this.router = express.Router();
+        this.usuarioControler = new UsuarioControler()
+        this.carregadorRotas()
+    }
+    
+    carregadorRotas(){
+
+        this.router.get('/usuario', this.usuarioControler.buscarTodosUsuarios.bind(this.usuarioControler))
+        
+        
+        this.router.post('/usuario', this.usuarioControler.addUsuario.bind(this.usuarioControler))
+        
+        this.router.put('/usuario', this.usuarioControler.alterarUsuario.bind(this.usuarioControler))
+        
+        this.router.delete('/usuario', this.usuarioControler.excluirUsuario.bind(this.usuarioControler))
+        
+    }
+
+
+
+}
+
+
+
+
+
+module.exports = new UsuarioRotas().router

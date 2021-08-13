@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const UsuarioModel = require('../model/usuarios.js')
+const UsuarioModel = require('../model/modeloUsuarios.js')
 
 class UsuarioRepoMongo{
 
@@ -13,13 +13,14 @@ class UsuarioRepoMongo{
     };
 
     excluirUsuario(email){
-        
-       
+        const promiseExecluiUsuario = this.model.deleteOne({email:email}).exec()       
+        return promiseExecluiUsuario
     };
 
     alterarUsuario(usuario){
-        
-
+        const queryUsuario = {email:usuario.email}
+        const promiseAlterarUsuario = this.model.findOneAndUpdate(queryUsuario , usuario ).exec()
+        return promiseAlterarUsuario
        
     }
 

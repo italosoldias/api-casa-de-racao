@@ -16,9 +16,9 @@ const UsuarioSchema = new mongoose.Schema ({
         },
         
         senha : {
-            type : Number,
+            type : String,
             required  : true,
-            select: false,
+            //select: false,
             
         },
         

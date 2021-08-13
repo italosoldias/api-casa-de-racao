@@ -8,10 +8,11 @@ const Racao = require('../class/ClassRacao.js');
 const RacaoSchema = new mongoose.Schema ({
 
 
-    _id : {
-        type: Number,
-        required : true,
-    },
+        _id : {
+            type: Number,
+            required : true,
+        },
+        
         descricao:{ 
             type : String,
             required : true,

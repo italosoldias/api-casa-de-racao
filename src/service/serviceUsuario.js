@@ -12,21 +12,19 @@ class UsuarioService{
     };
 
     excluirUsuario(email){
-        
-        let indice = this.usuarios.findIndex((objeto) => objeto.email == email )
+        this.usuariosRepos.excluirUsuario(email)
 
-
-        this.usuarios.splice(indice,1)
     };
 
     alterarUsuario(usuario){
-        this.usuarios.forEach((objeto) => {
-            if(objeto.email == usuario.email){
-                objeto.senha = usuario.senha ? usuario.senha : objeto.senha
-                objeto.nome = usuario.nome ? usuario.nome : objeto.nome
-            }
+        // this.usuariosRepos.forEach((objeto) => {
+        //     if(objeto.email == usuario.email){
+        //         objeto.senha = usuario.senha ? usuario.senha : objeto.senha
+        //         objeto.nome = usuario.nome ? usuario.nome : objeto.nome
+        //     }
 
-        })
+        // })
+        this.usuariosRepos.alterarUsuario(usuario)
     }
 
     buscarUsuario(email){

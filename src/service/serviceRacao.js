@@ -11,14 +11,13 @@ class RacaoService {
         this.racoes.addRacao(racao)
     };
 
-    excluiRacao(id){
-        let indice = this.racoes.findIndex((objeto) => objeto.id == id )
-        this.racoes.splice(indice , 1)
+    excluiRacao(_id){
+        this.racoes.excluiRacao(_id)
 
     };
 
     alterarRacao(racao){
-
+        this.racoes.alterarRacao(racao)
     };
 
     buscarTodasRacoes(){

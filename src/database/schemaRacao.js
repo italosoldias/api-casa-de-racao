@@ -12,13 +12,15 @@ class RacaoBancoMongo{
         this.model.create(racao)
     };
 
-    excluiRacao(id){
-       
-
+    excluiRacao(_id){
+       const promiseExcluiRacao = this.model.deleteOne({_id:_id}).exec()
+        return promiseExcluiRacao
     };
 
     alterarRacao(racao){
-
+        const queryRacao = {_id:racao._id}
+        const promeseAlteraRacao = this.model.findOneAndUpdate(queryRacao , racao).exec()
+        return promeseAlteraRacao
     };
 
     buscarTodasRacoes(){
