@@ -1,4 +1,4 @@
-const Item = require('./ClassItem.js')
+import Item from './ClassItem.js';
 
 
 class Racao extends Item {
@@ -18,4 +18,4 @@ class Racao extends Item {
 
 console.log(Racao)
 
-module.exports = Racao
+export default  Racao

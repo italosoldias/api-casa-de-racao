@@ -1,4 +1,4 @@
-const UsuarioRepoMongo = require('../database/schemaUsuario.js')
+import UsuarioRepoMongo from '../database/schemaUsuario.js';
 
 class UsuarioService{
 
@@ -17,13 +17,7 @@ class UsuarioService{
     };
 
     alterarUsuario(usuario){
-        // this.usuariosRepos.forEach((objeto) => {
-        //     if(objeto.email == usuario.email){
-        //         objeto.senha = usuario.senha ? usuario.senha : objeto.senha
-        //         objeto.nome = usuario.nome ? usuario.nome : objeto.nome
-        //     }
-
-        // })
+       
         this.usuariosRepos.alterarUsuario(usuario)
     }
 
@@ -38,4 +32,4 @@ class UsuarioService{
     }
 }
 
-module.exports = UsuarioService
+export default  UsuarioService

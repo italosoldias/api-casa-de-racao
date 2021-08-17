@@ -1,11 +1,8 @@
-// modelo 
-
-
 import mongoose from 'mongoose';
-import Racao from'../class/ClassRacao.js';
+import  Coleira from '../class/ClasseColeira.js';
 //const racaoDB = racao
 
-const RacaoSchema = new mongoose.Schema ({
+const ColeiraSchema = new mongoose.Schema ({
 
 
         _id : {
@@ -35,15 +32,11 @@ const RacaoSchema = new mongoose.Schema ({
             required : true,
         },
 
-        sabor : {
+        tamanho : {
             type : String,
             required : true,
         },
         
-        validade : {
-            type : String,
-            required : true,
-        },
         
         tipo : {
             type : Number,
@@ -52,8 +45,8 @@ const RacaoSchema = new mongoose.Schema ({
     
 })
 
-RacaoSchema.loadClass(Racao)
+ColeiraSchema.loadClass(Coleira)
 
-const RacaoModel = mongoose.model('Racoe', RacaoSchema);
+const ColeiraModel = mongoose.model('Coleira', ColeiraSchema);
 
-export default  RacaoModel;
+export default ColeiraModel;

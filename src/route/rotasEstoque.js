@@ -1,28 +1,33 @@
-const express = require('express');
+import express from 'express';
 
 
-const RacaoControler = require('../controladores/ControladorEstoque.js')
+import EstoqueControler from '../controladores/ControladorEstoque.js';
 
 
 
 
-class RacaoRota{
+class EstoqueRota{
 
     constructor(){
         this.router = express.Router();
-        this.racaoControler = new RacaoControler()
+        this.estoqueControler = new EstoqueControler()
         this.carregaRotas()
     }
 
     carregaRotas(){
 
-        this.router.get('/racao', this.racaoControler.buscarTodasRacoes.bind(this.racaoControler) )
+        this.router.get('/racao', this.estoqueControler.buscarTodasRacoes.bind(this.estoqueControler) )
 
-        this.router.post('/racao', this.racaoControler.addRacao.bind(this.racaoControler) )
+        this.router.get('/coleira', this.estoqueControler.buscarTodasColeiras.bind(this.estoqueControler))
+        
+        this.router.get('/estoque', this.estoqueControler.buscaTodoEstoque.bind(this.estoqueControler) )
+        // implementar um metodo para buscar todo o estoque
 
-        this.router.put('/racao', this.racaoControler.alterarRacao.bind(this.racaoControler))
+        this.router.post('/estoque', this.estoqueControler.addestoque.bind(this.estoqueControler) )
 
-        this.router.delete('/racao', this.racaoControler.excluiRacao.bind(this.racaoControler) )
+        this.router.put('/racao', this.estoqueControler.alterarRacao.bind(this.estoqueControler))
+
+        this.router.delete('/racao', this.estoqueControler.excluiRacao.bind(this.estoqueControler) )
 
         }
 
@@ -58,4 +63,4 @@ class RacaoRota{
 // })
 
 
-module.exports = new RacaoRota().router
+export default  new EstoqueRota().router

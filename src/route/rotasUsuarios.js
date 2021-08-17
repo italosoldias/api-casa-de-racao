@@ -1,7 +1,7 @@
-const express = require('express');
+import express from'express';
  
 //const Usuario = require('../model/usuarios.js');
-const UsuarioControler = require('../controladores/ControladorUsuario.js')
+import UsuarioControler from'../controladores/ControladorUsuario.js';
 
 
 
@@ -34,4 +34,4 @@ class UsuarioRotas{
 
 
 
-module.exports = new UsuarioRotas().router
+export default  new UsuarioRotas().router

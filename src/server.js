@@ -1,16 +1,19 @@
-const express = require('express');
-const mongoose = require ('mongoose');
-const ManegeDB = require('./database/ManegeDB.js')
-const bodyParser = require('body-parser');
-const rotasUsuarios = require('./route/rotasUsuarios.js')
-const rotasEstoque = require('./route/rotasEstoque.js');
+import express from 'express';
+import mongoose from'mongoose';
+import ManegeDB from './database/ManegeDB.js';
+import rotasUsuarios from './route/rotasUsuarios.js';
+import rotasEstoque from './route/rotasEstoque.js';
 
 class Server{
 
     constructor(){
         this.app = express();
-        ManegeDB.conectar()
+       
 
+        
+    }
+
+    start(){
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended : false}));
 
@@ -24,9 +27,9 @@ class Server{
     }
 }
 
-new Server()
+export default   Server
 
-
+//ManegeDB.conectar()
 
 
 

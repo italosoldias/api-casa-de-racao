@@ -1,5 +1,5 @@
 
-const RacaoBancoMongo = require('../database/schemaRacao.js')
+import RacaoBancoMongo from '../database/schemaRacao.js';
 
 class RacaoService {
     
@@ -26,4 +26,4 @@ class RacaoService {
 
 }
 
-module.exports = RacaoService
+export default  RacaoService

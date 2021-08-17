@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Usuario = require('../class/Usuarios.js')
+import mongoose from 'mongoose';
+import Usuario from '../class/Usuarios.js';
 //const racaoDB = racao
 //definindo o modelo da colection
 const UsuarioSchema = new mongoose.Schema ({
@@ -39,4 +39,4 @@ const UsuarioModel = mongoose.model('Usuario', UsuarioSchema);
 
 
 
-module.exports = UsuarioModel;
+export default UsuarioModel;

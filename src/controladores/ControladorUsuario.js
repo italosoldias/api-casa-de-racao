@@ -1,5 +1,5 @@
-const UsuarioService = require('../service/serviceUsuario')
-const UsuarioClasse = require('../class/Usuarios.js')
+import UsuarioService from '../service/serviceUsuario.js';
+import UsuarioClasse from '../class/Usuarios.js';
 
 class UsuarioControler {
 
@@ -36,5 +36,5 @@ class UsuarioControler {
     };
 }
 
-module.exports= UsuarioControler
+export default  UsuarioControler
 

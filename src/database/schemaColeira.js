@@ -1,15 +1,15 @@
-import mongoose  from 'mongoose';
-import ModeloRacao from '../model/modeloRacao.js';
+import mongoose from 'mongoose';
+import ModeloColeira from '../model/modeloColeira.js';
 
 
-class RacaoBancoMongo{
+class ColeiraBancoMongo{
     
     constructor(){
-        this.model =  ModeloRacao
+        this.model =  ModeloColeira
     };
 
-    addRacao(racao){
-        this.model.create(racao)
+    addColeira(Coleira){
+        this.model.create(Coleira)
     };
 
     excluiRacao(_id){
@@ -23,7 +23,7 @@ class RacaoBancoMongo{
         return promeseAlteraRacao
     };
 
-    buscarTodasRacoes(){
+    buscarTodasColeiras(){
         const consulta = this.model.find({})
         const promise = consulta.exec()
         return promise
@@ -31,4 +31,4 @@ class RacaoBancoMongo{
 
 }
 
-export default  RacaoBancoMongo
+export default  ColeiraBancoMongo
