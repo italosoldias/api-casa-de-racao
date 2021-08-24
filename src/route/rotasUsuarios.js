@@ -16,10 +16,12 @@ class UsuarioRotas{
     carregadorRotas(){
 
         this.router.get('/usuario', this.usuarioControler.buscarTodosUsuarios.bind(this.usuarioControler))
-        
+        this.router.get('/usuario:id', this.usuarioControler.buscarUsuario.bind(this.usuarioControler))
         
         this.router.post('/usuario', this.usuarioControler.addUsuario.bind(this.usuarioControler))
-        
+        this.router.post('/autenticacao', this.usuarioControler.autenticacaoUsuario.bind(this.usuarioControler) )
+
+
         this.router.put('/usuario', this.usuarioControler.alterarUsuario.bind(this.usuarioControler))
         
         this.router.delete('/usuario', this.usuarioControler.excluirUsuario.bind(this.usuarioControler))

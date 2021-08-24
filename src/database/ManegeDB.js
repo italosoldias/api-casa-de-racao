@@ -5,7 +5,7 @@ class ManegeDB {
     
 
   static async conectar(){
-        await mongoose.connect('mongodb://localhost:27017/apiCasaDeRacao',
+        await mongoose.connect(process.env.MONGODB_URL,
         { useNewUrlParser: true, useUnifiedTopology: true , useFindAndModify: false }).catch((err)=>{
         console.log( `ERRO NA CONEXÃO : ${err}`)
     })

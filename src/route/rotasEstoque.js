@@ -14,6 +14,8 @@ class EstoqueRota{
         this.carregaRotas()
     }
 
+
+    
     carregaRotas(){
 
         this.router.get('/racao', this.estoqueControler.buscarTodasRacoes.bind(this.estoqueControler) )
