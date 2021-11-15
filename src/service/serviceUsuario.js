@@ -1,5 +1,5 @@
 import UsuarioRepoMongo from '../database/schemaUsuario.js';
-import jsonWebToken from 'jsonWebToken';
+import jsonWebToken from 'jsonwebtoken';
 import bcrytjs from 'bcryptjs';
 
 class UsuarioService{
@@ -43,7 +43,7 @@ class UsuarioService{
 
         
         
-     // bcrytjs.compare(senha, this.usuariosRepos.autenticacaoUsuario(senha) )
+      bcrytjs.compare(senha, this.usuariosRepos.autenticacaoUsuario(senha) )
         return autentcat
     }
     geracaoToken( paramns = {}){

@@ -21,12 +21,12 @@ class UsuarioControler {
 
     async addUsuario(req, res){
         
-             let usuarioLT =  await new UsuarioClasse(req.body.nome, req.body.email, req.body.senha, req.body.dataDeCriacao)
+             let usuarioLT =  await new UsuarioClasse(req.body.idUsuario ,req.body.nome, req.body.email, req.body.senha, req.body.dataDeCriacao)
             this.usuarioService.addUsuario(usuarioLT)
 
             res.json({
                 usuarioLT,
-                token: this.usuarioService.geracaoToken({_id : usuarioLT._id}) 
+                token: this.usuarioService.geracaoToken({idUsuario : usuarioLT.idUsuario}) 
             })
         };
 
@@ -80,7 +80,7 @@ class UsuarioControler {
           return res.send(
               {
                 autenticUsuario, 
-                  token: this.usuarioService.geracaoToken({_id : autenticUsuario._id}) })
+                  token: this.usuarioService.geracaoToken({idUsuario: autenticUsuario.idUsuario}) })
         //  res.status(200).json(autenticEmail, token) 
         
       

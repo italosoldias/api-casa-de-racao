@@ -4,7 +4,14 @@ import bcryptjs from 'bcryptjs';
 //const racaoDB = racao
 //definindo o modelo da colection
 const UsuarioSchema = new mongoose.Schema ({
-    
+
+        idUsuario :{
+            type: String,
+            required: true,
+            select: true
+        },
+        
+        
         nome : {
             type : String,
             required  : true,

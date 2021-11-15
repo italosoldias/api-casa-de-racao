@@ -25,7 +25,7 @@ class EstoqueRota{
         this.router.get('/estoque', this.estoqueControler.buscaTodoEstoque.bind(this.estoqueControler) )
         // implementar um metodo para buscar todo o estoque
 
-        this.router.post('/estoque', this.estoqueControler.addestoque.bind(this.estoqueControler) )
+        this.router.post('/estoque', this.estoqueControler.validaReq.bind(this.estoqueControler) )
 
         this.router.put('/racao', this.estoqueControler.alterarRacao.bind(this.estoqueControler))
 

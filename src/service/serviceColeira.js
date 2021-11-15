@@ -7,8 +7,13 @@ class ColeiraService {
         this.coleiras = new ColeiraBancoMongo()
     };
 
-    addColeira(coleira){
-        this.coleiras.addColeira(coleira)
+    addColeira(error, coleira){
+        let erromongo = error
+        
+        this.coleiras.addColeira(coleira, error)
+       
+
+        return erromongo
     };
 
     excluiRacao(_id){

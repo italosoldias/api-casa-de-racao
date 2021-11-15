@@ -8,8 +8,16 @@ class ColeiraBancoMongo{
         this.model =  ModeloColeira
     };
 
-    addColeira(Coleira){
-        this.model.create(Coleira)
+    addColeira(Coleira, error){
+       let erro = error
+        try {
+            this.model.create(Coleira, error)
+        } catch (erro ) {
+            return error
+        }
+       
+       
+        
     };
 
     excluiRacao(_id){

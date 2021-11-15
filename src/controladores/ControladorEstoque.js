@@ -13,18 +13,98 @@ class EstoqueControler {
         //this.buscarTodasColeiras()
     };
 
-    async addestoque (req, res){
-            if(req.body.categoria == 'coleira'){
-                let coleiraLT = new ColeiraClasse(req.body._id ,req.body.descricao,  req.body.valorCompra , req.body.marca, req.body.categoria, req.body.tamanho, req.body.tipo)
-                this.coleiraService.addColeira(coleiraLT)
-                res.json(coleiraLT)
-            } else {
-                let racaoLT = new RacaoClasse( req.body._id ,req.body.descricao,  req.body.valorCompra , req.body.marca, req.body.categoria, req.body.sabor, req.body.validade ,  req.body.tipo, )
-                this.racoesService.addRacao(racaoLT)
-                res.json(racaoLT)
-            }
+    validaReq(req, res) {
+        let requizi = req.body
+        
+        if(!req.body._id || 
+           !req.body.descricao ||
+           !req.body.valorCompra ||
+           !req.body.marca ||
+           !req.body.categoria || 
+           !req.body.tipo ||  
+           !req.body.codigoDeBarras ){
+            return  res.status(400)
+                        .send({Erro: "esta faltando informação do produto",
+                                 oQueFoiMandado: requizi })
+            }else{
+                this.addestoque(req, res)
+            } 
+    };    
 
+    async addestoque (req, res, error){
+        
+
+        switch (req.body.categoria) {
+            case 'coleira':
+                    let coleiraLT = new ColeiraClasse(
+                        req.body._id,
+                        req.body.descricao,  
+                        req.body.valorCompra,
+                        req.body.marca,
+                        req.body.categoria, 
+                        req.body.tamanho,
+                        req.body.tipo,
+                        req.body.codigoDeBarras)
+
+
+            try {  
+                if (!req.body.tamanho){
+                    res.status(400).send({Erro: "Não foi enviada a propriedade de tamanho"})
+                } else{this.coleiraService.addColeira(error, coleiraLT)}
+
+                
+
+                res.status(200).send({Sucesso: "uma coleira foi adicionada com sucesso",
+                ItemAdicionado : coleiraLT    })
+                
+
+                        
+            } catch (error ) {
+             res.json({error})
+            break;
+        }
             
+            break;
+        
+            default:
+                let racaoLT = new RacaoClasse( req.body._id,
+                    req.body.descricao,
+                    req.body.valorCompra,
+                    req.body.marca,
+                    req.body.categoria, 
+                    req.body.sabor, 
+                    req.body.validade , 
+                    req.body.tipo, 
+                    req.body.codigoDeBarras)
+                
+
+                    try {
+                        this.racoesService.addRacao(racaoLT, error )
+                        res.json(racaoLT)
+                    } catch (error) {
+                        res.Erro(error)
+                    }
+
+                
+                break;
+        }
+
+
+
+
+
+        
+          
+        
+
+
+
+         
+            
+                   
+                
+                    
+                
     };
 
     async excluiRacao(req, res){

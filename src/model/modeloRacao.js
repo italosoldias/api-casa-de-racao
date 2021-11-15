@@ -48,6 +48,11 @@ const RacaoSchema = new mongoose.Schema ({
         tipo : {
             type : Number,
             required : true,
+        },
+        
+        codigoDeBarras :{
+            type: Number,
+            required : true
         }
     
 })
