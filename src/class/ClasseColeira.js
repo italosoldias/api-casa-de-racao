@@ -2,9 +2,9 @@ import Item from "./ClassItem.js";
 
 class Coleira extends Item{
 
-    constructor(_id, descricao,  valorCompra, marca,  categoria, tamanho, tipo, codigoDeBarras){
-        super(_id, descricao,  valorCompra, marca,  categoria,codigoDeBarras ) 
-        this.tamanho = tamanho
+    constructor(_id, descricao,  valorCompra, marca,  categoria, tipo, codigoDeBarras,tamanho){
+        super(_id, descricao,  valorCompra, marca,  categoria, codigoDeBarras,tamanho ) 
+        
         this.tipo = tipo
     }
 }

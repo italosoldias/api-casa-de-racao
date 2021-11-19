@@ -1,5 +1,5 @@
 class Item {
-    constructor(_id, descricao,  valorCompra, marca, categoria, codigoDeBarras){
+    constructor(_id, descricao,  valorCompra, marca, categoria, codigoDeBarras, tamanho){
         
         this._id = _id
         this.descricao = descricao
@@ -8,6 +8,7 @@ class Item {
         this.marca = marca
         this.categoria = categoria
         this.codigoDeBarras= codigoDeBarras
+        this.tamanho = tamanho
     }
 }
 

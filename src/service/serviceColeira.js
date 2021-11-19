@@ -16,13 +16,13 @@ class ColeiraService {
         return erromongo
     };
 
-    excluiRacao(_id){
-        this.racoes.excluiRacao(_id)
+    excluiColeira(_id){
+        this.coleiras.excluiColeira(_id)
 
     };
 
-    alterarRacao(racao){
-        this.racoes.alterarRacao(racao)
+    alterarColeira(coleira){
+        this.coleiras.alterarColeira(coleira)
     };
 
     buscarTodasColeiras(){

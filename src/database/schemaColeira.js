@@ -12,6 +12,7 @@ class ColeiraBancoMongo{
        let erro = error
         try {
             this.model.create(Coleira, error)
+            
         } catch (erro ) {
             return error
         }
@@ -20,15 +21,15 @@ class ColeiraBancoMongo{
         
     };
 
-    excluiRacao(_id){
-       const promiseExcluiRacao = this.model.deleteOne({_id:_id}).exec()
-        return promiseExcluiRacao
+    excluiColeira(_id){
+       const promiseExcluiColeira = this.model.deleteOne({_id:_id}).exec()
+        return promiseExcluiColeira
     };
 
-    alterarRacao(racao){
-        const queryRacao = {_id:racao._id}
-        const promeseAlteraRacao = this.model.findOneAndUpdate(queryRacao , racao).exec()
-        return promeseAlteraRacao
+    alterarColeira(coleira){
+        const queryColeira = {_id:coleira._id}
+        const promeseAlteraColeira = this.model.findOneAndUpdate(queryColeira , racao).exec()
+        return promeseAlteraColeira
     };
 
     buscarTodasColeiras(){

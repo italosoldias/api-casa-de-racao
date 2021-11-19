@@ -25,6 +25,11 @@ const RacaoSchema = new mongoose.Schema ({
             required : true,
         },
 
+        valorVenda : {
+            type: Number,
+            required: false,
+        },
+
         marca : {
             type : String,
             required : true,

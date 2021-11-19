@@ -22,6 +22,11 @@ const ColeiraSchema = new mongoose.Schema ({
             required : true,
         },
 
+        valorVenda : {
+            type: Number,
+            required: false,
+        },
+
         marca : {
             type : String,
             required : true,
@@ -36,8 +41,7 @@ const ColeiraSchema = new mongoose.Schema ({
             type : String,
             required : true,
         },
-        
-        
+                
         tipo : {
             type : Number,
             required : true,
