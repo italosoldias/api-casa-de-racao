@@ -9,7 +9,7 @@ class ColeiraBancoMongo{
     };
 
     addColeira(Coleira, error){
-       let erro = error
+       
         try {
             this.model.create(Coleira, error)
             

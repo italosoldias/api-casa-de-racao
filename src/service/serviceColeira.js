@@ -8,7 +8,7 @@ class ColeiraService {
     };
 
     addColeira(error, coleira){
-        let erromongo = error
+        
         
         this.coleiras.addColeira(coleira, error)
        

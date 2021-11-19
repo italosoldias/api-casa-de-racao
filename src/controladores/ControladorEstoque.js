@@ -42,9 +42,9 @@ class EstoqueControler {
                         req.body.valorCompra,
                         req.body.marca,
                         req.body.categoria, 
-                        req.body.tamanho,
-                        req.body.tipo,
-                        req.body.codigoDeBarras)
+                        req.body.tipo,    
+                        req.body.codigoDeBarras,
+                         req.body.tamanho)
 
 
             try {  

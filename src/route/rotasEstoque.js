@@ -29,7 +29,7 @@ class EstoqueRota{
 
         this.router.put('/racao', this.estoqueControler.alterarRacao.bind(this.estoqueControler))
 
-        this.router.delete('/racao', this.estoqueControler.excluiRacao.bind(this.estoqueControler) )
+        this.router.delete('/estoque', this.estoqueControler.excluiRacao.bind(this.estoqueControler) )
 
         }
 
