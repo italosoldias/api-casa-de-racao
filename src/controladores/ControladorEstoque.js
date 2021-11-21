@@ -31,7 +31,7 @@ class EstoqueControler {
             } 
     };    
 
-    async addestoque (req, res, error){
+    async addestoque (req, res){
         
 
         switch (req.body.categoria) {
@@ -50,7 +50,7 @@ class EstoqueControler {
             try {  
                 if (!req.body.tamanho){
                     res.status(400).send({Erro: "Não foi enviada a propriedade de tamanho"})
-                } else{this.coleiraService.addColeira(error, coleiraLT)}
+                } else{ await this.coleiraService.addColeira( coleiraLT)}
 
                 
 
@@ -59,54 +59,40 @@ class EstoqueControler {
                 
 
                         
-            } catch (error ) {
-             res.json({error})
+            } catch (e ) {
+                res.status(400).send({Erro : e.message})
             break;
         }
             
-            break;
-        
-            default:
-                let racaoLT = new RacaoClasse( req.body._id,
-                    req.body.descricao,
-                    req.body.valorCompra,
-                    req.body.marca,
-                    req.body.categoria, 
-                    req.body.sabor, 
-                    req.body.validade , 
-                    req.body.tipo, 
-                    req.body.codigoDeBarras)
-                
-
-                    try {
-                        this.racoesService.addRacao(racaoLT, error )
-                        res.json(racaoLT)
-                    } catch (error) {
-                        res.Erro(error)
-                    }
-
-                
-                break;
-        }
-
-
-
-
-
-        
-          
-        
-
-
-
-         
+        case 'racao' :
+            let racaoLT = new RacaoClasse( req.body._id,
+                req.body.descricao,
+                req.body.valorCompra,
+                req.body.marca,
+                req.body.categoria, 
+                req.body.sabor, 
+                req.body.validade , 
+                req.body.tipo, 
+                req.body.codigoDeBarras)
+                                    
+                        try {
+                            await this.racoesService.addRacao(racaoLT )
+                           
+                            res.json(racaoLT)
+                        } catch (e) {
             
-                   
-                
-                    
-                
+                            res.status(400).send({Erro : e.message}) 
+                            break;
+                        }
+        
+            default: res.send({Erro: "deu rum"})
+            break;
+            
+        }
+       
+           
     };
-
+    
     async excluiRacao(req, res){
             await this.racoesService.excluiRacao(req.body._id)
              res.send('excluido com sucesso')
@@ -133,6 +119,31 @@ class EstoqueControler {
             return racoesRetornadas
         
     };
+
+    async buscaUmaRacao(req, res){
+            const racaoUN =  await this.racoesService.buscarRacao(req.codigoDeBarras, res)
+            const respost = racaoUN
+            console.log(respost)
+     
+            return respost
+        
+
+    };
+
+    async buscaUmaColeira(req, res){
+        const coleiraUN =  await this.racoesService.buscarRacao(req.codigoDeBarras, res)
+       const respostColeira = coleiraUN
+       
+      
+
+       
+      console.log(respostColeira)
+     
+      return respostColeira
+        
+
+    }
+
 
     async buscaTodoEstoque (req, res){
         

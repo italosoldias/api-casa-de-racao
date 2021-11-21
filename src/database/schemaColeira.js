@@ -38,6 +38,17 @@ class ColeiraBancoMongo{
         return promise
     };
 
+    buscarColeira(codigoDeBarras){
+        const querColeira = {codigoDeBarras}
+        const consultarColeiraUN =  this.model.findOne(querColeira).exec()
+        
+        
+
+    
+        return consultarColeiraUN
+    };
+
+
 }
 
 export default  ColeiraBancoMongo
