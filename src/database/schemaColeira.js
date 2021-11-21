@@ -9,7 +9,7 @@ class ColeiraBancoMongo{
     };
 
     addColeira(Coleira, error){
-       let erro = error
+       
         try {
             this.model.create(Coleira, error)
             
@@ -37,6 +37,17 @@ class ColeiraBancoMongo{
         const promise = consulta.exec()
         return promise
     };
+
+    buscarColeira(codigoDeBarras){
+        const querColeira = {codigoDeBarras}
+        const consultarColeiraUN =  this.model.findOne(querColeira).exec()
+        
+        
+
+    
+        return consultarColeiraUN
+    };
+
 
 }
 

@@ -5,7 +5,7 @@ const BrinquedoSchema = new mongoose.Schema ({
 
     _id : {
         type: Number,
-        required : true,
+        required : false,
     },
     
     descricao:{ 

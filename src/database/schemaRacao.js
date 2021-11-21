@@ -8,9 +8,7 @@ class RacaoBancoMongo{
         this.model =  ModeloRacao
     };
 
-    addRacao(racao){
-        this.model.create(racao)
-    };
+    
 
     excluiRacao(_id){
        const promiseExcluiRacao = this.model.deleteOne({_id:_id}).exec()
@@ -23,10 +21,28 @@ class RacaoBancoMongo{
         return promeseAlteraRacao
     };
 
-    buscarTodasRacoes(){
-        const consulta = this.model.find({})
-        const promise = consulta.exec()
-        return promise
+    buscarRacao(codigoDeBarras){
+        const querRacao = {codigoDeBarras}
+        const consultarRacaoUN =  this.model.findOne(querRacao).exec()
+        
+        
+
+    
+        return consultarRacaoUN
+    };
+
+
+
+
+    addRacao(racao){
+       
+
+        
+        this.model.create(racao)
+        
+
+
+
     };
 
 }

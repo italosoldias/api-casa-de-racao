@@ -7,13 +7,13 @@ class ColeiraService {
         this.coleiras = new ColeiraBancoMongo()
     };
 
-    addColeira(error, coleira){
-        let erromongo = error
-        
+    async addColeira(coleira){
+        const existeColeira = await this.buscarColeira(coleira.codigoDeBarras)
+        if(existeColeira) {   throw new Error('esse codigoDeBarras ja existe');  }
         this.coleiras.addColeira(coleira, error)
        
 
-        return erromongo
+        
     };
 
     excluiColeira(_id){
@@ -29,6 +29,10 @@ class ColeiraService {
         return this.coleiras.buscarTodasColeiras()
     };
 
+    buscarColeira(codigoDeBarras){
+        const coleiraRetor=   this.coleiras.buscarColeira(codigoDeBarras)
+          return coleiraRetor
+    }
 }
 
 export default  ColeiraService
