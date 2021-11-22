@@ -10,7 +10,7 @@ const RacaoSchema = new mongoose.Schema ({
 
         _id : {
             type: Number,
-            required : true,
+            required : false,
         },
         
         descricao:{ 
@@ -59,7 +59,7 @@ const RacaoSchema = new mongoose.Schema ({
             type: Number,
             required : true
         }
-    
+    // quero ver se vai 
 })
 
 RacaoSchema.loadClass(Racao)

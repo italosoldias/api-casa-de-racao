@@ -87,10 +87,10 @@ class EstoqueControler {
         
             default: res.send({Erro: "deu rum"})
             break;
-            
+            // opts
         }
        
-           
+           //qqq
     };
     
     async excluiRacao(req, res){

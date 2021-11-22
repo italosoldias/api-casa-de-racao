@@ -47,6 +47,8 @@ const BrinquedoSchema = new mongoose.Schema ({
     codigoDeBarras :{
         type: Number,
         required : true
+
+        //
     }
 
 })
