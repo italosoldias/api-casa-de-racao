@@ -68,8 +68,9 @@ class UsuarioRepoMongo{
 
 
     autenticacaoUsuario(email, senha){
-        const queryUsuarioAutent = {email:email, senha:senha}
-        const consultaUsuarioAutent = this.model.findOne({email}).select('senha').exec()
+        //const queryUsuarioAutent = {email:email, senha:senha}
+        const consultaUsuarioAutent =  this.model.findOne({email}).select('senha').exec()
+         console.log(consultaUsuarioAutent)
         return consultaUsuarioAutent
     }
 

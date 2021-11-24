@@ -18,6 +18,11 @@ class EstoqueRota{
     
     carregaRotas(){
 
+
+        this.router.post('/opa', this.estoqueControler.validaReq.bind(this.estoqueControler))
+
+
+
         this.router.get('/racao', this.estoqueControler.buscarTodasRacoes.bind(this.estoqueControler) )
 
         this.router.get('/coleira', this.estoqueControler.buscarTodasColeiras.bind(this.estoqueControler))

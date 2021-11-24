@@ -65,7 +65,7 @@ class UsuarioControler {
                 return  res.status(400).send({erro : "usuario não existe"})
             } 
 
-            const comparacaoCripto = await bcryptjs.compare(req.body.senha, await autenticUsuario.senha )
+            const comparacaoCripto = await bcryptjs.compare(req.body.senha,  autenticUsuario.senha )
             if (!comparacaoCripto ) {
               return  res.status(400).send({erro : "senha errada"})
             }

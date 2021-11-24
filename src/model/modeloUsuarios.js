@@ -28,7 +28,7 @@ const UsuarioSchema = new mongoose.Schema ({
         senha : {
             type : String,
             required  : true,
-            select: false,
+            select: true,
             
         },
         

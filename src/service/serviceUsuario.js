@@ -38,12 +38,12 @@ class UsuarioService{
           return usuarioRetor
       }
 
-    autenticacaoUsuario(email, senha) {
-        const autentcat = this.usuariosRepos.autenticacaoUsuario(email, senha)
+   async autenticacaoUsuario(email, senha) {
+        const autentcat = await this.usuariosRepos.autenticacaoUsuario(email, senha)
 
         
         
-      bcrytjs.compare(senha, this.usuariosRepos.autenticacaoUsuario(senha) )
+      bcrytjs.compare(senha, autentcat.senha )
         return autentcat
     }
     geracaoToken( paramns = {}){

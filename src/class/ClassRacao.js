@@ -2,11 +2,11 @@ import Item from './ClassItem.js';
 
 
 class Racao extends Item {
-    constructor(_id,descricao,  valorCompra, marca, categoria, sabor, validade,tipo, codigoDeBarras){
-        super(_id, descricao,  valorCompra, marca,  categoria, codigoDeBarras) 
+    constructor(_id,descricao,  valorCompra, marca, categoria, tipo, codigoDeBarras, sabor, validade,){
+        super(_id, descricao,  valorCompra, marca,  categoria, tipo, codigoDeBarras) 
         this.sabor = sabor;
         this.validade = validade
-        this.tipo = tipo
+        
        
         
        
