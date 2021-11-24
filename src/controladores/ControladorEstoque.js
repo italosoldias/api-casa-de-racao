@@ -2,6 +2,7 @@ import ColeiraService from'../service/serviceColeira.js';
 import RacaoService from '../service/serviceRacao.js';
 import RacaoClasse from '../class/ClassRacao.js'; 
 import ColeiraClasse from'../class/ClasseColeira.js';
+import ItemService from '../service/serviceItem.js'
 
 
 class EstoqueControler {
@@ -9,11 +10,16 @@ class EstoqueControler {
     constructor(){
         this.racoesService = new RacaoService()
         this.coleiraService = new ColeiraService()
+        this.itemEstoque= new ItemService()
         //this.buscarTodasColeiras()
         //this.buscarTodasColeiras()
     };
 
-    validaReq(req, res) {
+    async addItem(req, res){
+        
+    };
+
+    async validaReq(req, res) {
         let requizi = req.body
         
         if(!req.body._id || 
@@ -27,7 +33,8 @@ class EstoqueControler {
                         .send({Erro: "esta faltando informação do produto",
                                  oQueFoiMandado: requizi })
             }else{
-                this.addestoque(req, res)
+                
+              await  this.itemEstoque.addItem(req, res)
             } 
     };    
 
