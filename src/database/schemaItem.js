@@ -8,7 +8,7 @@ class DinamicoBancoMongo{
         this.model =  ModeloDinamico
     };
 
-    addItem(reqObjetocompleto, error){
+    addItemBanco(reqObjetocompleto, error){
        
         try {
             this.model.create(reqObjetocompleto, error)
@@ -16,10 +16,40 @@ class DinamicoBancoMongo{
         } catch (erro ) {
             return error
         }
-       
-       
-        
     };
+
+     buscarItemBanco(paramBusca, valorBusca) {       
+        
+        const paramBuscaSet = paramBusca
+        const valorBuscaSet = valorBusca
+
+        switch (paramBuscaSet) {
+            case "codigoDeBarras":
+                //const conjunto = { codigoDeBarras : valorBuscaSet}
+                const codigoDeBarras =  valorBuscaSet
+                console.log(codigoDeBarras)
+                const queryItemBancoPorCOD =  this.model.findOne({codigoDeBarras}).exec()
+                const resQueryItembancoCOD =  queryItemBancoPorCOD
+                
+                    return resQueryItembancoCOD
+                break;
+            case "_id" :
+                const queryItemBanco_ID =  this.model.findOne( { "_id" : valorBusca}).exec()
+                    return queryItemBanco_ID
+                break;
+            default: "Houve um problema aqui no => buscarItemBanco()"
+                break;
+        }   
+    };
+
+    alterarItemBanco(item){
+        const queryItemAlteracao = {codigoDeBarras:item.codigoDeBarras}
+        const promeseAlteraItem = this.model.findOneAndUpdate(queryItemAlteracao , item).exec()
+        return promeseAlteraItem
+    };
+    
+
+
 }
 
 export default DinamicoBancoMongo

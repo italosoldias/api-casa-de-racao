@@ -3,6 +3,7 @@ import RacaoService from '../service/serviceRacao.js';
 import RacaoClasse from '../class/ClassRacao.js'; 
 import ColeiraClasse from'../class/ClasseColeira.js';
 import ItemService from '../service/serviceItem.js'
+import Item from '../class/ClassItem.js';
 
 
 class EstoqueControler {
@@ -15,11 +16,16 @@ class EstoqueControler {
         //this.buscarTodasColeiras()
     };
 
-    async addItem(req, res){
-        
+   
+
+    async adicionarItem(req, res){
+      const adicionado =  await this.itemEstoque.addItem(req, res)
+
+
+      res.status(200).send(adicionado)
     };
 
-    async validaReq(req, res) {
+    async validaReqCreate(req, res) {
         let requizi = req.body
         
         if(!req.body._id || 
@@ -27,16 +33,54 @@ class EstoqueControler {
            !req.body.valorCompra ||
            !req.body.marca ||
            !req.body.categoria || 
-           !req.body.tipo ||  
-           !req.body.codigoDeBarras ){
+           !req.body.tipo ){
             return  res.status(400)
                         .send({Erro: "esta faltando informação do produto",
                                  oQueFoiMandado: requizi })
-            }else{
-                
-              await  this.itemEstoque.addItem(req, res)
+            } else {
+                    const itemLT = new Item(
+                        requizi._id,
+                        requizi.descricao,
+                        requizi.valorCompra,
+                        requizi.marca,
+                        requizi.categoria,
+                        requizi.tipo,
+                        requizi.codigoDeBarras,
+                        requizi.tamanho
+                    )
+                    try {
+                        await this.itemEstoque.addItem(itemLT, req , res)
+                        // this.addItem(itemLT, res)
+                         res.json(itemLT)
+
+                       
+                         
+                    } catch (error) {
+                        res.status(400).send({Erro: "hove um problema " + error.message })
+                    }
+                    
             } 
     };    
+
+
+
+    async buscaItem(req, res){
+        const bustancoItem = await this.itemEstoque.buscarItemCodigoDeBarras(req, res)
+        const respostItem = bustancoItem
+        res.json(respostItem)
+    };
+
+    async alterarItemEstoque(req, res) {
+        await this.itemEstoque.alterarItem(req.body)
+        res.send('estoque alterado')
+    
+    };
+
+
+
+
+
+    // o que sera ainda migrado para o novo padrão de item
 
     async addestoque (req, res){
         
@@ -51,7 +95,7 @@ class EstoqueControler {
                         req.body.categoria, 
                         req.body.tipo,    
                         req.body.codigoDeBarras,
-                         req.body.tamanho)
+                        req.body.tamanho)
 
 
             try {  
@@ -128,11 +172,11 @@ class EstoqueControler {
     };
 
     async buscaUmaRacao(req, res){
-            const racaoUN =  await this.racoesService.buscarRacao(req.codigoDeBarras, res)
+            const racaoUN =  await this.racoesService.buscarRacao(req.body.codigoDeBarras, res)
             const respost = racaoUN
             console.log(respost)
      
-            return respost
+            res.json(respost)
         
 
     };
@@ -150,6 +194,8 @@ class EstoqueControler {
         
 
     }
+
+    
 
 
     async buscaTodoEstoque (req, res){

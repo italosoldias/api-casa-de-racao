@@ -47,7 +47,8 @@ const ItemSchema = new mongoose.Schema ({
         
         codigoDeBarras :{
             type: Number,
-            required : true
+            required : true,
+            unique: true,
         },
 
         sabor : {
@@ -72,7 +73,7 @@ const ItemSchema = new mongoose.Schema ({
 
 
 
-ItemSchema.loadClass(Coleira, Racao)
+ItemSchema.loadClass(Item,Racao)
 
 
 const DinamicoModel = mongoose.model("ITEM", ItemSchema);

@@ -13,11 +13,16 @@ const tk = "548500933265f234caec46fb5f29da69"
 
 
  export default (req, res, next) => {
+
+    
+
     const autorizacaoHeader = req.headers.token
 
     if(!autorizacaoHeader){
         return res.status(401).send({erro: 'token não informado'})
     }
+
+
     
     const parts = autorizacaoHeader.split(' ')
 
@@ -38,4 +43,6 @@ const tk = "548500933265f234caec46fb5f29da69"
     req.autenticUsuario= decoded._id    
         return next()
     })
+
+     
 }
