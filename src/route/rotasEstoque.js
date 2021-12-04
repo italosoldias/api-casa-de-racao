@@ -19,11 +19,11 @@ class EstoqueRota{
     carregaRotas(){
 
 
-        this.router.post('/estoque-i', this.estoqueControler.validaReqCreate.bind(this.estoqueControler))
+        this.router.post('/estoque-i', this.estoqueControler.validaReq.bind(this.estoqueControler))
         this.router.get('/estoque-b', this.estoqueControler.buscaItem.bind(this.estoqueControler))
-        this.router.put('/estoque-a', this.estoqueControler.alterarItemEstoque.bind(this.estoqueControler))
+        this.router.put('/estoque-a', this.estoqueControler.alterarCadastroItemEstoque.bind(this.estoqueControler))
         this.router.get('/estoque-c', this.estoqueControler.buscaUmaRacao.bind(this.estoqueControler) )
-        
+        this.router.put('/estoque-sob', this.estoqueControler.alterarQunatidadeItemEstoque.bind(this.estoqueControler))
 
         this.router.get('/racao', this.estoqueControler.buscarTodasRacoes.bind(this.estoqueControler) )
 
@@ -32,7 +32,7 @@ class EstoqueRota{
         this.router.get('/estoque', this.estoqueControler.buscaTodoEstoque.bind(this.estoqueControler) )
         // implementar um metodo para buscar todo o estoque
         
-        this.router.post('/estoque', this.estoqueControler.validaReqCreate.bind(this.estoqueControler) )
+        this.router.post('/estoque', this.estoqueControler.validaReq.bind(this.estoqueControler) )
 
         this.router.put('/racao', this.estoqueControler.alterarRacao.bind(this.estoqueControler))
 

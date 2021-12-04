@@ -25,41 +25,46 @@ class EstoqueControler {
       res.status(200).send(adicionado)
     };
 
-    async validaReqCreate(req, res) {
-        let requizi = req.body
+    async validaReq(req, res) {
         
-        if(!req.body._id || 
-           !req.body.descricao ||
-           !req.body.valorCompra ||
-           !req.body.marca ||
-           !req.body.categoria || 
-           !req.body.tipo ){
+        
+        const itemLT = new Item(
+            req.body._id,
+            req.body.descricao,
+            req.body.valorCompra,
+            req.body.marca,
+            req.body.categoria,
+            req.body.tipo,
+            req.body.codigoDeBarras,
+            req.body.tamanho,
+            req.body.quantidade)
+
+        if(!itemLT._id || 
+           !itemLT.descricao ||
+           !itemLT.valorCompra ||
+           !itemLT.marca ||
+           !itemLT.categoria || 
+           !itemLT.tipo ||
+           !itemLT.codigoDeBarras){
             return  res.status(400)
                         .send({Erro: "esta faltando informação do produto",
-                                 oQueFoiMandado: requizi })
+                                 oQueFoiMandado: itemLT })
             } else {
-                    const itemLT = new Item(
-                        requizi._id,
-                        requizi.descricao,
-                        requizi.valorCompra,
-                        requizi.marca,
-                        requizi.categoria,
-                        requizi.tipo,
-                        requizi.codigoDeBarras,
-                        requizi.tamanho
-                    )
-                    try {
-                        await this.itemEstoque.addItem(itemLT, req , res)
-                        // this.addItem(itemLT, res)
-                         res.json(itemLT)
 
-                       
-                         
-                    } catch (error) {
-                        res.status(400).send({Erro: "hove um problema " + error.message })
-                    }
                     
-            } 
+                    
+                        try {
+                            await this.itemEstoque.addItem(itemLT, req , res)
+                            // this.addItem(itemLT, res)
+                             res.json(itemLT)
+    
+                           
+                             
+                        } catch (error) {
+                            res.status(400).send({Erro: "hove um problema " + error.message })
+                        };
+                      
+            };
     };    
 
 
@@ -70,9 +75,42 @@ class EstoqueControler {
         res.json(respostItem)
     };
 
-    async alterarItemEstoque(req, res) {
-        await this.itemEstoque.alterarItem(req.body)
-        res.send('estoque alterado')
+
+    async alterarQunatidadeItemEstoque(req, res, item) {
+
+        
+        const itemParaAlteracaoQuantidade = req.body 
+
+        if(!itemParaAlteracaoQuantidade.codigoDeBarras){
+            res.status(400).send({Erro: "esta faltando informação do produto",})
+        } else {
+            try {
+                await this.itemEstoque.adicionaQuantidadeItem(itemParaAlteracaoQuantidade,req)
+                res.send('estoque alterado')
+            } catch (error) {
+                res.status(400).send({Erro : error.message })
+            };
+            
+        };
+    };
+
+
+    async alterarCadastroItemEstoque(req, res, item) {
+        const itemParaAlteracao = req.body || item.codigoDeBarras 
+
+        if(!itemParaAlteracao.codigoDeBarras){
+            res.status(400).send({Erro: "esta faltando informação do produto",})
+        } else {
+            try {
+                await this.itemEstoque.alterarItem(itemParaAlteracao,req)
+                res.send('estoque alterado')
+            } catch (error) {
+                res.status(400).send({Erro : error.message })
+            };
+        };
+
+        
+        
     
     };
 

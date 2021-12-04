@@ -58,6 +58,7 @@ const RacaoSchema = new mongoose.Schema ({
         codigoDeBarras :{
             type: Number,
             required : true
+
         }
     // quero ver se vai 
 })
