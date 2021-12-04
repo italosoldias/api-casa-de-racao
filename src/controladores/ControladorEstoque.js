@@ -54,6 +54,7 @@ class EstoqueControler {
                     
                     
                         try {
+                            
                             await this.itemEstoque.addItem(itemLT, req , res)
                             // this.addItem(itemLT, res)
                              res.json(itemLT)
@@ -90,7 +91,7 @@ class EstoqueControler {
             } catch (error) {
                 res.status(400).send({Erro : error.message })
             };
-            
+
         };
     };
 
