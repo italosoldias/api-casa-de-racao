@@ -24,7 +24,7 @@ const ItemSchema = new mongoose.Schema ({
         
 
         valorCompra : {
-            type : Double,
+            type : Number,
             required : true,
         },
 

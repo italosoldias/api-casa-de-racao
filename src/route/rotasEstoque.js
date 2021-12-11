@@ -24,6 +24,13 @@ class EstoqueRota{
         this.router.put('/estoque-a', this.estoqueControler.alterarCadastroItemEstoque.bind(this.estoqueControler))
         this.router.get('/estoque-c', this.estoqueControler.buscaUmaRacao.bind(this.estoqueControler) )
         this.router.put('/estoque-sob', this.estoqueControler.alterarQunatidadeItemEstoque.bind(this.estoqueControler))
+        this.router.get("/estoque-buscatudo", this.estoqueControler.buscarTodosItens.bind(this.estoqueControler))
+        this.router.post('/estoque/sacola', this.estoqueControler.adicionarItemSacola.bind(this.estoqueControler))
+
+
+
+
+
 
         this.router.get('/racao', this.estoqueControler.buscarTodasRacoes.bind(this.estoqueControler) )
 

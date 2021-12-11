@@ -11,7 +11,7 @@ class EstoqueControler {
     constructor(){
         this.racoesService = new RacaoService()
         this.coleiraService = new ColeiraService()
-        this.itemEstoque= new ItemService()
+        this.itemEstoque = new ItemService()
         //this.buscarTodasColeiras()
         //this.buscarTodasColeiras()
     };
@@ -50,24 +50,20 @@ class EstoqueControler {
                         .send({Erro: "esta faltando informação do produto",
                                  oQueFoiMandado: itemLT })
             } else {
-
-                    
-                    
-                        try {
-                            
-                            await this.itemEstoque.addItem(itemLT, req , res)
-                            // this.addItem(itemLT, res)
-                             res.json(itemLT)
-    
-                           
-                             
-                        } catch (error) {
+                 try {
+                    await this.itemEstoque.addItem(itemLT, req , res)
+                         res.json(itemLT)
+         
+                    } catch (error) {
                             res.status(400).send({Erro: "hove um problema " + error.message })
-                        };
-                      
-            };
+                }; 
+        };
     };    
 
+    async buscarTodosItens(req, res){
+        const itemRetornadas = await this.itemEstoque.buscarTodosItens(req)
+        res.status(200).send({"Loja":itemRetornadas})
+    }
 
 
     async buscaItem(req, res){
@@ -109,11 +105,52 @@ class EstoqueControler {
                 res.status(400).send({Erro : error.message })
             };
         };
-
-        
-        
-    
     };
+
+    
+
+   async adicionarItemSacola (req, res) {
+        if (!req.body.quantidade ||
+            !req.body.codigoDeBarras){
+               return res.status(400).send('esta faltando informações')
+        } else {
+                const itemParaSaloca = {
+                    codigoDeBarrasItemSacola : req.body.codigoDeBarras,
+                    quantidadeItemSacola : req.body.quantidade
+                };
+
+                try {
+                   const sacola =   await this.itemEstoque.adicionarItemSacolaService(itemParaSaloca ,req, res)
+                    
+                    console.log(sacola)
+                     res.send(sacola)
+
+                } catch (error) {
+                    res.status(400).send({Erro : error.message })
+                }
+        }
+              
+    }
+
+    async valorItemSacolaTotal(req, res){
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

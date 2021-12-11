@@ -7,9 +7,21 @@ class ItemService {
     constructor() {
     
         this.item = new ItemBancoMongo()
+        this.valor = 0
+        this.valorTalSacola =  0
+        this.sacolaAtual = { "itensNaSacola" : [], "valorTotal": this.valorTalSacola};
+        // this.somarTotal = function (valor1, valor2) {
+         
+        //     return 
+        // }
+
+        
     };
 
+     
+
     async addItem(itemAdicionado, reqAdiciona, res){
+
 
         //to pegando a propriedade da chave do que esta vindo no body
         const keyAdicionarItem = Object.keys(reqAdiciona.body)
@@ -18,7 +30,8 @@ class ItemService {
         const valorAdicionar = itemAdicionado.codigoDeBarras
         const existeItem = await  this.buscarItemCodigoDeBarras( keySelectAdicionar[0] , valorAdicionar)
        // console.log(existeItem)
-        if(existeItem != null || undefined){ throw new Error ('Esse codigo de barras já existe !!! '  )
+        if(existeItem != null || undefined){ 
+            throw new Error ('Esse codigo de barras já existe !!! '  )
             
         } else {
            
@@ -28,13 +41,77 @@ class ItemService {
         // const existeColeira = await this.buscarColeira(coleira.codigoDeBarras)
         // if(existeColeira) {   throw new Error('esse codigoDeBarras ja existe');  }
 
-        
-
-        
-       
-
-        
     };
+
+    async adicionarItemSacolaService (itemParaSacola, req, res){
+
+        
+        const buscaItemParaSacola =  await this.buscarItemCodigoDeBarras('codigoDeBarras', itemParaSacola.codigoDeBarrasItemSacola)       
+        
+        console.log(buscaItemParaSacola)
+        if(buscaItemParaSacola == null || undefined){ 
+            throw new Error ('O item com esse codigo de barras ' + itemParaSacola.codigoDeBarrasItemSacola + ' não exste !!!' )
+
+        } else if (itemParaSacola.quantidadeItemSacola > buscaItemParaSacola.quantidade  ) { 
+            throw new Error ('Não posso adicionar essa quantidade ' )
+            
+        } else {
+            const valoresItem =  buscaItemParaSacola.valorCompra * itemParaSacola.quantidadeItemSacola 
+            const itemSacolaMomento = {
+                descricao : buscaItemParaSacola.descricao,
+                categoria : buscaItemParaSacola.categoria,
+                codigoDeBarras : buscaItemParaSacola.codigoDeBarras,
+                quantidadeItemSacolaMomento : itemParaSacola.quantidadeItemSacola,
+                valorPorItem : buscaItemParaSacola.valorCompra,
+                valorTotalItem : Number(valoresItem) 
+            }
+            
+
+            //const sacolaAtual = { "itens" : []}
+            for (let index = 0; index <=  this.sacolaAtual['itensNaSacola'].length; index++) {
+                const element = this.sacolaAtual.itensNaSacola.length;
+                //const contadorItem  =   "item"+ index 
+                const increment = element 
+                //console.log(increment)
+                const totalItensSacola = this.sacolaAtual.itensNaSacola
+                const empurraSacola = this.sacolaAtual['itensNaSacola'].push({[increment] :  itemSacolaMomento})
+                this.somaValorTotalSacola(null,null,totalItensSacola[increment][increment])
+                 break;
+            }
+
+            
+             //   const somar =  this.sacolaAtual.valorTotal + itemSacolaMomento.valorTotalItem
+             
+            return this.sacolaAtual 
+            
+            
+
+            
+        }
+       // 
+
+       // console.log(buscaItemParaSacola)
+    }
+    async somaValorTotalSacola (req, res, itemMontado){
+        
+        const somar =  this.sacolaAtual.valorTotal + itemMontado.valorTotalItem
+       return this.sacolaAtual.valorTotal = somar 
+
+        
+
+        // const valores =  Number( 
+        //  const soma =   + valores
+        //  this.valor = soma
+        //  return console.log(soma)
+        
+
+    }
+
+    async buscarTodosItens(req) {
+
+        const queryTodosItens = await this.item.buscarTodosItensBanco(req)
+        return queryTodosItens
+    }
 
     async buscarItemCodigoDeBarras(paranBusca, valorBusca){
 
@@ -50,7 +127,8 @@ class ItemService {
         const valorQuantidadeAlteracao = itemQuantidadeAlteração.codigoDeBarras
         const verificaCodigoDeBarrasItemAlteracao = await  this.buscarItemCodigoDeBarras( keySelectQuantidadeAlteracao[0] , valorQuantidadeAlteracao)
 
-        if(!verificaCodigoDeBarrasItemAlteracao){throw new Error ('O item com esse codigo de barras ' + valorQuantidadeAlteracao + ' não exste !!!' )
+        if(!verificaCodigoDeBarrasItemAlteracao){
+            throw new Error ('O item com esse codigo de barras ' + valorQuantidadeAlteracao + ' não exste !!!' )
         } else {
 
             const quantidadeQueryBanco = verificaCodigoDeBarrasItemAlteracao.quantidade

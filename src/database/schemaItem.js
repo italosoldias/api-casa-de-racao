@@ -18,6 +18,13 @@ class DinamicoBancoMongo{
         }
     };
 
+    buscarTodosItensBanco(req){
+        const consulta = this.model.find({})
+        const promise = consulta.exec()
+        return promise
+    };
+
+
      buscarItemBanco(paramBusca, valorBusca) {       
         
         const paramBuscaSet = paramBusca
