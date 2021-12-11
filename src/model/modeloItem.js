@@ -64,7 +64,13 @@ const ItemSchema = new mongoose.Schema ({
         tamanho : {
             type : String,
             required : false
-        }
+        },
+
+        quantidade :{
+            type : Number,
+            required : false,
+            default : 0
+        } 
 
     // quero ver se vai 
 })

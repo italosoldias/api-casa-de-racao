@@ -37,18 +37,23 @@ class DinamicoBancoMongo{
                 const queryItemBanco_ID =  this.model.findOne( { "_id" : valorBusca}).exec()
                     return queryItemBanco_ID
                 break;
-            default: "Houve um problema aqui no => buscarItemBanco()"
+            default: return "Houve um problema aqui no => buscarItemBanco()"
                 break;
         }   
     };
 
-    alterarItemBanco(item){
+    alterarCadastroItemBanco(item){
         const queryItemAlteracao = {codigoDeBarras:item.codigoDeBarras}
         const promeseAlteraItem = this.model.findOneAndUpdate(queryItemAlteracao , item).exec()
         return promeseAlteraItem
     };
     
-
+    // alterarQantidadeItemBanco(item){
+    //     const queryItemAlteracao = {codigoDeBarras:item.codigoDeBarras}
+    //     const promeseAlteraItem = this.model.findOneAndUpdate(queryItemAlteracao , item.quantidade).exec()
+    //     return promeseAlteraItem
+    // }
+    
 
 }
 
