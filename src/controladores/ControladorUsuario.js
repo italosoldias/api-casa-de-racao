@@ -59,28 +59,35 @@ class UsuarioControler {
 
     async autenticacaoUsuario (req, res){
         
+      console.log(req.body)
+      
         const autenticUsuario = await this.usuarioService.autenticacaoUsuario(req.body.email, req.body.senha)
-               
-            if(!autenticUsuario){
-                return  res.status(400).send({erro : "usuario não existe"})
-            } 
+         
+        if(!autenticUsuario){
+          return  res.status(400).send({erro : "usuario não existe"})
+      } 
 
-            const comparacaoCripto = await bcryptjs.compare(req.body.senha,  autenticUsuario.senha )
-            if (!comparacaoCripto ) {
-              return  res.status(400).send({erro : "senha errada"})
-            }
-          
-        
-            autenticUsuario.senha = undefined
+      const comparacaoCripto = await bcryptjs.compare(req.body.senha,  autenticUsuario.senha )
+      if (!comparacaoCripto ) {
+        return  res.status(400).send({erro : "senha errada"})
+      }
+    
+  
+      autenticUsuario.senha = undefined
+
+      return res.send(
+        {
+          autenticUsuario, 
+            token: this.usuarioService.geracaoToken({idUsuario: autenticUsuario.idUsuario}) })
+     
+              
+            
         
         //const tks = JSON.parse( tk)
 
         
 
-          return res.send(
-              {
-                autenticUsuario, 
-                  token: this.usuarioService.geracaoToken({idUsuario: autenticUsuario.idUsuario}) })
+          
         //  res.status(200).json(autenticEmail, token) 
         
       
