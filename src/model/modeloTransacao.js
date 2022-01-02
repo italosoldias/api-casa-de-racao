@@ -1,6 +1,6 @@
 import  mongoose  from "mongoose";
 
-import Transacao from "../class/Transacao.js";
+import Transacao from "../class/ClassTransacao.js";
 
 const TransacaoSchema = new mongoose.Schema({
     

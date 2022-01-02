@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
-import ModeloDinamico from '../model/modeloItem.js';
+import ModeloItem from '../model/modeloItem.js';
 
 
 class DinamicoBancoMongo{
     
     constructor(){
-        this.model =  ModeloDinamico
+        this.model =  ModeloItem
     };
 
     addItemBanco(reqObjetocompleto, error){

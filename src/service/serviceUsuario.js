@@ -39,12 +39,18 @@ class UsuarioService{
       }
 
    async autenticacaoUsuario(email, senha) {
-        const autentcat = await this.usuariosRepos.autenticacaoUsuario(email, senha)
+        
 
+        try{
+            const autentcat = await this.usuariosRepos.autenticacaoUsuario(email, senha)
+            bcrytjs.compare(senha, autentcat.senha )
+            return autentcat
+        } catch (error) {
+             error.message
+        }
         
+      
         
-      bcrytjs.compare(senha, autentcat.senha )
-        return autentcat
     }
     geracaoToken( paramns = {}){
         return jsonWebToken.sign({paramns}, '548500933265f234caec46fb5f29da69', {
