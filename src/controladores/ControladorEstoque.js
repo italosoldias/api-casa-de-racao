@@ -26,7 +26,7 @@ class EstoqueControler {
     };
 
     async validaReq(req, res) {
-        
+        //precisa ajustar essa criação do novo item esta faltando informações no banco
         
         const itemLT = new Item(
             req.body._id,
@@ -67,7 +67,7 @@ class EstoqueControler {
 
 
     async buscaItem(req, res){
-        const bustancoItem = await this.itemEstoque.buscarItemCodigoDeBarras(req, res)
+        const bustancoItem = await this.itemEstoque.buscarItemCodigoDeBarras( "codigoDeBarras",req.body.codigoDeBarras)
         const respostItem = bustancoItem
         res.json(respostItem)
     };
