@@ -1,26 +1,17 @@
-import ItemBancoMongo from '../database/schemaItem.js'
+import ItemBancoMongo from '../database/schemaEstoque.js'
 import RacaoClasse from '../class/ClassRacao.js'; 
 import ColeiraClasse from'../class/ClasseColeira.js'; 
 
+const item = new ItemBancoMongo()
+const valor = 0
+const valorTalSacola =  0
+const sacolaAtual = { "itensNaSacola" : [], "valorTotal": valorTalSacola};
 
-class ItemService {
-    constructor() {
-    
-        this.item = new ItemBancoMongo()
-        this.valor = 0
-        this.valorTalSacola =  0
-        this.sacolaAtual = { "itensNaSacola" : [], "valorTotal": this.valorTalSacola};
-        // this.somarTotal = function (valor1, valor2) {
-         
-        //     return 
-        // }
 
-        
-    };
 
      
 
-    async addItem(itemAdicionado, reqAdiciona, res){
+export async function addItem(itemAdicionado, reqAdiciona, res){
 
 
         //to pegando a propriedade da chave do que esta vindo no body
@@ -28,14 +19,14 @@ class ItemService {
         const keySelectAdicionar = keyAdicionarItem.filter(codigoDeBarras => codigoDeBarras === "codigoDeBarras" )
         
         const valorAdicionar = itemAdicionado.codigoDeBarras
-        const existeItem = await  this.buscarItemCodigoDeBarras( keySelectAdicionar[0] , valorAdicionar)
+        const existeItem = await  buscarItemCodigoDeBarras( keySelectAdicionar[0] , valorAdicionar)
        // console.log(existeItem)
         if(existeItem != null || undefined){ 
             throw new Error ('Esse codigo de barras já existe !!! '  )
             
         } else {
            
-           const insert =  this.item.addItemBanco(itemAdicionado)
+           const insert =  item.addItemBanco(itemAdicionado)
             return insert
          } 
         // const existeColeira = await this.buscarColeira(coleira.codigoDeBarras)
@@ -43,10 +34,10 @@ class ItemService {
 
     };
 
-    async adicionarItemSacolaService (itemParaSacola, req, res){
+    export async function adicionarItemSacolaService (itemParaSacola, req, res){
 
         
-        const buscaItemParaSacola =  await this.buscarItemCodigoDeBarras('codigoDeBarras', itemParaSacola.codigoDeBarrasItemSacola)       
+        const buscaItemParaSacola =  await buscarItemCodigoDeBarras('codigoDeBarras', itemParaSacola.codigoDeBarrasItemSacola)       
         
         console.log(buscaItemParaSacola)
         if(buscaItemParaSacola == null || undefined){ 
@@ -68,21 +59,21 @@ class ItemService {
             
 
             //const sacolaAtual = { "itens" : []}
-            for (let index = 0; index <=  this.sacolaAtual['itensNaSacola'].length; index++) {
-                const element = this.sacolaAtual.itensNaSacola.length;
+            for (let index = 0; index <=  sacolaAtual['itensNaSacola'].length; index++) {
+                const element = sacolaAtual.itensNaSacola.length;
                 //const contadorItem  =   "item"+ index 
                 const increment = element 
                 //console.log(increment)
-                const totalItensSacola = this.sacolaAtual.itensNaSacola
-                const empurraSacola = this.sacolaAtual['itensNaSacola'].push({[increment] :  itemSacolaMomento})
-                this.somaValorTotalSacola(null,null,totalItensSacola[increment][increment])
+                const totalItensSacola = sacolaAtual.itensNaSacola
+                const empurraSacola = sacolaAtual['itensNaSacola'].push({[increment] :  itemSacolaMomento})
+                somaValorTotalSacola(null,null,totalItensSacola[increment][increment])
                  break;
             }
 
             
              //   const somar =  this.sacolaAtual.valorTotal + itemSacolaMomento.valorTotalItem
              
-            return this.sacolaAtual 
+            return sacolaAtual 
             
             
 
@@ -92,10 +83,10 @@ class ItemService {
 
        // console.log(buscaItemParaSacola)
     }
-    async somaValorTotalSacola (req, res, itemMontado){
+    export async function somaValorTotalSacola (req, res, itemMontado){
         
-        const somar =  this.sacolaAtual.valorTotal + itemMontado.valorTotalItem
-       return this.sacolaAtual.valorTotal = somar 
+        const somar =  sacolaAtual.valorTotal + itemMontado.valorTotalItem
+       return sacolaAtual.valorTotal = somar 
 
         
 
@@ -107,25 +98,25 @@ class ItemService {
 
     }
 
-    async buscarTodosItens(req) {
+    export async function buscarTodosItens(req) {
 
-        const queryTodosItens = await this.item.buscarTodosItensBanco(req)
+        const queryTodosItens = await item.buscarTodosItensBanco(req)
         return queryTodosItens
     }
 
-    async buscarItemCodigoDeBarras(paranBusca, valorBusca){
+    export async function buscarItemCodigoDeBarras(paranBusca, valorBusca){
 
-        const retornoItem =  await this.item.buscarItemBanco(paranBusca, valorBusca)
+        const retornoItem =  await item.buscarItemBanco(paranBusca, valorBusca)
           return retornoItem
     };
 
-    async adicionaQuantidadeItem(itemQuantidadeAlteração, reqAteracaoQuantidade){
+    export async function adicionaQuantidadeItem(itemQuantidadeAlteração, reqAteracaoQuantidade){
 
         const keyQuantidadeAlteracaoItem = Object.keys(reqAteracaoQuantidade.body)
         const keySelectQuantidadeAlteracao = keyQuantidadeAlteracaoItem.filter(codigoDeBarras => codigoDeBarras === "codigoDeBarras" )
         console.log()
         const valorQuantidadeAlteracao = itemQuantidadeAlteração.codigoDeBarras
-        const verificaCodigoDeBarrasItemAlteracao = await  this.buscarItemCodigoDeBarras( keySelectQuantidadeAlteracao[0] , valorQuantidadeAlteracao)
+        const verificaCodigoDeBarrasItemAlteracao = await  buscarItemCodigoDeBarras( keySelectQuantidadeAlteracao[0] , valorQuantidadeAlteracao)
 
         if(!verificaCodigoDeBarrasItemAlteracao){
             throw new Error ('O item com esse codigo de barras ' + valorQuantidadeAlteracao + ' não exste !!!' )
@@ -139,7 +130,7 @@ class ItemService {
                 "quantidade" : somaItem,
                 "codigoDeBarras": verificaCodigoDeBarrasItemAlteracao.codigoDeBarras
             }
-            this.item.alterarCadastroItemBanco(itemAlteraValor)
+            item.alterarCadastroItemBanco(itemAlteraValor)
             //this.item.alterarCadastroItemBanco(itemAlteracao)
 
             console.log(itemAlteraValor)
@@ -147,22 +138,21 @@ class ItemService {
 
     }
 
-    async alterarItem(itemAlteracao, reqAlteracao){
+    export async function alterarItem(itemAlteracao, reqAlteracao){
         const keyAlteracaoItem = Object.keys(reqAlteracao.body)
         const keySelectAlteracao = keyAlteracaoItem.filter(codigoDeBarras => codigoDeBarras === "codigoDeBarras" )
         console.log()
         const valorAlteracao = itemAlteracao.codigoDeBarras
-        const verificaItemAlteracao = await  this.buscarItemCodigoDeBarras( keySelectAlteracao[0] , valorAlteracao)
+        const verificaItemAlteracao = await  buscarItemCodigoDeBarras( keySelectAlteracao[0] , valorAlteracao)
 
         if (!verificaItemAlteracao){ 
             throw new Error ('O item com esse codigo de barras ' + valorAlteracao + ' não exste !!!' )
         } else {
-            this.item.alterarCadastroItemBanco(itemAlteracao)
+            item.alterarCadastroItemBanco(itemAlteracao)
         }
 
     };
 
 
-}
 
-export default ItemService
+

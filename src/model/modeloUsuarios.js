@@ -6,9 +6,9 @@ import bcryptjs from 'bcryptjs';
 const UsuarioSchema = new mongoose.Schema ({
 
         idUsuario :{
-            type: String,
-            required: true,
-            select: true
+            type: Number,
+            required: false,
+            unique: true,
         },
         
         

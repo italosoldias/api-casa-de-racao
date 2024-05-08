@@ -10,8 +10,8 @@ class UsuarioRepoMongo{
 
     };
 
-    addUsuario(usuario){
-        this.model.create(usuario)
+    async addUsuario(usuario){
+       await this.model.create(usuario)
     };
 
     excluirUsuario(email){
@@ -56,10 +56,21 @@ class UsuarioRepoMongo{
         const promisseUsuario = consultaUsuario.lean().exec()
         return promisseUsuario
     }
-    buscarUsuario(email){
-        const querUsuario = {email}
-        const consultaUsuarioUN =  this.model.findOne(querUsuario).exec()
+
+    buscarUsuarioIdBanco(idUsuario){
+        const parametroBuscaIdUsuario = {idUsuario}
+        const consultaUsuarioUN =  this.model.findOne(parametroBuscaIdUsuario).exec()
+         
         
+
+    
+        return consultaUsuarioUN
+    }
+
+    buscarUsuarioEmailBanco(email){
+        const parametroBuscaUsuarioEmail = {email}
+        const consultaUsuarioUN =  this.model.findOne(parametroBuscaUsuarioEmail).exec()
+         
         
 
     
