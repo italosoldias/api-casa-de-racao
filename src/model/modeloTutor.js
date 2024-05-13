@@ -1,18 +1,18 @@
 import mongoose from 'mongoose';
-import Usuario from '../class/Usuarios.js';
+import Tutor from '../class/ClassTutor.js';
 import bcryptjs from 'bcryptjs';
 //const racaoDB = racao
 //definindo o modelo da colection
-const UsuarioSchema = new mongoose.Schema ({
+const TutorSchema = new mongoose.Schema ({
 
-        idUsuario :{
+        idTutor :{
             type: Number,
-            required: false,
+            required: true,
             unique: true,
         },
         
         
-        nome : {
+        nomeTutor : {
             type : String,
             required  : true,
             select: true,
@@ -31,6 +31,12 @@ const UsuarioSchema = new mongoose.Schema ({
             select: true,
             
         },
+
+        numeroTelefone :{
+            type : String,
+            required: false,
+            
+        },
         
         datadeCriacao: {
             type: Date,
@@ -42,20 +48,20 @@ const UsuarioSchema = new mongoose.Schema ({
 
 // objeto q representa os dados
 
-UsuarioSchema.loadClass(Usuario);
+TutorSchema.loadClass(Tutor);
 
 // UsuarioSchema.pre
 
-UsuarioSchema.pre('save', async function(next){
+TutorSchema.pre('save', async function(next){
     const hashAdd = await bcryptjs.hash(this.senha, 10)
     this.senha = hashAdd
     next()
 })
-const UsuarioModel = mongoose.model('Usuario', UsuarioSchema);
+const TutorModel = mongoose.model('Tutor', TutorSchema);
 
 
 
 
 
 
-export default UsuarioModel;
+export default TutorModel;

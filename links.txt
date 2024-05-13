@@ -1,0 +1,13 @@
+https://base64.guru/converter/encode/file
+
+https://base64.guru/converter/decode/image
+
+https://www.vivaolinux.com.br/dica/Converter-imagem-para-base64-via-shell#google_vignette
+
+https://pt.stackoverflow.com/questions/379710/como-salvar-e-recuperar-imagens-em-base64-usando-mongoose-em-um-servi%C3%A7o-nodejs
+
+
+talvez util 
+
+
+https://www.youtube.com/watch?v=C1ur5pWXkNQ

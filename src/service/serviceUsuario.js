@@ -9,8 +9,19 @@ class UsuarioService{
 
     };
 
-    addUsuario(usuario){
-        this.usuariosRepos.addUsuario(usuario);
+    async addUsuario(usuario){
+       
+        const existeUsuario = usuario.idUsuario
+        const buscaUsuario = await this.usuariosRepos.buscarUsuarioIdBanco(existeUsuario)
+        if(buscaUsuario != null || undefined){ 
+            throw new Error ('Esse idUsuario ja existe !!! '  )
+            
+        } else {
+           
+           const insertUsuario =  this.usuariosRepos.addUsuario(usuario);
+            return insertUsuario
+         } 
+        
     };
 
     excluirUsuario(email){
@@ -33,9 +44,19 @@ class UsuarioService{
         return exportUsuarios
     }
 
-    buscarUsuario(email){
-        const usuarioRetor=   this.usuariosRepos.buscarUsuario(email)
-          return usuarioRetor
+   async buscarUsuarioService(parametroPesquisaUsuario){
+        const paramsUsuario = parametroPesquisaUsuario
+
+        if (paramsUsuario.idUsuario != null || undefined) {
+            let usuarioRetorno = await this.usuariosRepos.buscarUsuarioIdBanco(paramsUsuario.idUsuario)
+            return usuarioRetorno
+        } else {
+            let usuarioRetorno = await  this.usuariosRepos.buscarUsuarioEmailBanco(paramsUsuario.email)
+            return usuarioRetorno
+
+        }
+        
+
       }
 
    async autenticacaoUsuario(email, senha) {

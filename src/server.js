@@ -1,36 +1,56 @@
 import express from 'express';
 import mongoose from'mongoose';
 import ManegeDB from './database/ManegeDB.js';
-import rotasUsuarios from './route/rotasUsuarios.js';
-import rotasEstoque from './route/rotasEstoque.js';
+import {routerUsuario} from './route/rotasUsuarios.js';
+import {routerEstoque} from './route/rotasEstoque.js';
+import {rotaAnimal} from './route/rotasAnimal.js'
+import { rotaTutor } from './route/rotaTutor.js';
 import dotenv from 'dotenv/config.js'
 import RotaAutenticacao from './route/rotaAutenticacao.js';
-class Server{
 
-    constructor(){
-        this.app = express();
-        
-        
-    }
+const app = express();
 
-    start(){
-        console.log()
-
-        this.app.use(express.json());
-        this.app.use(express.urlencoded({ extended : false}));
+export default function start () {
+        app.use(express.json());
+        app.use(express.urlencoded({ extended : false}));
+        app.listen(process.env.SERVICE_PORTA)
         //this.app.use(RotaAutenticacao)
-        this.app.use('/', rotasUsuarios )
-        this.app.use('/',RotaAutenticacao, rotasEstoque )
-        
+        app.use('/', routerUsuario )
+        app.use('/', rotaAnimal  )
+        app.use('/',rotaTutor)
+        // app.use('/',RotaAutenticacao, routerEstoque )
+        app.use('/', routerEstoque)
 
-//require('./controladores/autoControlador.js')(app);
-
-
-        this.app.listen(process.env.SERVICE_PORTA)
-    }
 }
 
-export default   Server
+
+
+// class Server{
+
+//     constructor(){
+//         this.app = express();
+        
+        
+//     }
+
+//     start(){
+//         console.log()
+
+//         this.app.use(express.json());
+//         this.app.use(express.urlencoded({ extended : false}));
+//         //this.app.use(RotaAutenticacao)
+//         this.app.use('/', rotasUsuarios )
+//         this.app.use('/',RotaAutenticacao, rotasEstoque )
+        
+
+// //require('./controladores/autoControlador.js')(app);
+
+
+//         this.app.listen(process.env.SERVICE_PORTA)
+//     }
+// }
+
+// export default   Server
 
 //ManegeDB.conectar()
 

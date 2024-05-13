@@ -20,14 +20,20 @@ class UsuarioControler {
     };
 
     async addUsuario(req, res){
-        
-             let usuarioLT =  await new UsuarioClasse(req.body.idUsuario ,req.body.nome, req.body.email, req.body.senha, req.body.dataDeCriacao)
-            this.usuarioService.addUsuario(usuarioLT)
+        console.log(req.body)
+            
 
-            res.json({
-                usuarioLT,
-                token: this.usuarioService.geracaoToken({idUsuario : usuarioLT.idUsuario}) 
-            })
+            try {
+              let usuarioLT =   new UsuarioClasse(req.body.idUsuario ,req.body.nome, req.body.email, req.body.senha, req.body.dataDeCriacao)
+              await this.usuarioService.addUsuario(usuarioLT)
+  
+              res.json({
+                  usuarioLT,
+                  token: this.usuarioService.geracaoToken({idUsuario : usuarioLT.idUsuario}) 
+              })
+              } catch (error) {
+                      res.status(400).send({Erro: "hove um problema " + error.message })
+          }; 
         };
 
     async excluirUsuario(req, res){
@@ -52,7 +58,9 @@ class UsuarioControler {
     };
 
     async buscarUsuario(req, res){
-        const usuarioUN =  await this.usuarioService.buscarUsuario(req.body.email)
+
+      console.log (req.query)
+        const usuarioUN =  await this.usuarioService.buscarUsuarioService(req.query)
         console.log(usuarioUN)
         res.json(usuarioUN )
     };

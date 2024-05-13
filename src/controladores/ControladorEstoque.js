@@ -2,30 +2,22 @@ import ColeiraService from'../service/serviceColeira.js';
 import RacaoService from '../service/serviceRacao.js';
 import RacaoClasse from '../class/ClassRacao.js'; 
 import ColeiraClasse from'../class/ClasseColeira.js';
-import ItemService from '../service/serviceItem.js'
+import {alterarItem,adicionaQuantidadeItem,buscarItemCodigoDeBarras,buscarTodosItens,somaValorTotalSacola,adicionarItemSacolaService,addItem} from '../service/serviceItem.js'
 import Item from '../class/ClassItem.js';
 
+const racoesService = new RacaoService()
+const coleiraService = new ColeiraService()
 
-class EstoqueControler {
-    
-    constructor(){
-        this.racoesService = new RacaoService()
-        this.coleiraService = new ColeiraService()
-        this.itemEstoque = new ItemService()
-        //this.buscarTodasColeiras()
-        //this.buscarTodasColeiras()
-    };
 
-   
 
-    async adicionarItem(req, res){
-      const adicionado =  await this.itemEstoque.addItem(req, res)
+export async function adicionarItem(req, res){
+      const adicionado =  await addItem(req, res)
 
 
       res.status(200).send(adicionado)
     };
 
-    async validaReq(req, res) {
+export async function validaReq(req, res) {
         //precisa ajustar essa criação do novo item esta faltando informações no banco
         
         const itemLT = new Item(
@@ -51,7 +43,7 @@ class EstoqueControler {
                                  oQueFoiMandado: itemLT })
             } else {
                  try {
-                    await this.itemEstoque.addItem(itemLT, req , res)
+                    await addItem(itemLT, req , res)
                          res.json(itemLT)
          
                     } catch (error) {
@@ -60,20 +52,20 @@ class EstoqueControler {
         };
     };    
 
-    async buscarTodosItens(req, res){
-        const itemRetornadas = await this.itemEstoque.buscarTodosItens(req)
+export async function  buscaTodosItens(req, res){
+        const itemRetornadas = await buscarTodosItens(req)
         res.status(200).send({"Loja":itemRetornadas})
     }
 
 
-    async buscaItem(req, res){
-        const bustancoItem = await this.itemEstoque.buscarItemCodigoDeBarras( "codigoDeBarras",req.body.codigoDeBarras)
+export async function  buscaItem(req, res){
+        const bustancoItem = await buscarItemCodigoDeBarras( "codigoDeBarras",req.body.codigoDeBarras)
         const respostItem = bustancoItem
         res.json(respostItem)
     };
 
 
-    async alterarQunatidadeItemEstoque(req, res, item) {
+export async function  alterarQunatidadeItemEstoque(req, res, item) {
 
         
         const itemParaAlteracaoQuantidade = req.body 
@@ -82,7 +74,7 @@ class EstoqueControler {
             res.status(400).send({Erro: "esta faltando informação do produto",})
         } else {
             try {
-                await this.itemEstoque.adicionaQuantidadeItem(itemParaAlteracaoQuantidade,req)
+                await adicionaQuantidadeItem(itemParaAlteracaoQuantidade,req)
                 res.send('estoque alterado')
             } catch (error) {
                 res.status(400).send({Erro : error.message })
@@ -92,14 +84,14 @@ class EstoqueControler {
     };
 
 
-    async alterarCadastroItemEstoque(req, res, item) {
+export async function  alterarCadastroItemEstoque(req, res, item) {
         const itemParaAlteracao = req.body || item.codigoDeBarras 
 
         if(!itemParaAlteracao.codigoDeBarras){
             res.status(400).send({Erro: "esta faltando informação do produto",})
         } else {
             try {
-                await this.itemEstoque.alterarItem(itemParaAlteracao,req)
+                await alterarItem(itemParaAlteracao,req)
                 res.send('estoque alterado')
             } catch (error) {
                 res.status(400).send({Erro : error.message })
@@ -109,7 +101,7 @@ class EstoqueControler {
 
     
 
-   async adicionarItemSacola (req, res) {
+export async function  adicionarItemSacola (req, res) {
         if (!req.body.quantidade ||
             !req.body.codigoDeBarras){
                return res.status(400).send('esta faltando informações')
@@ -120,7 +112,7 @@ class EstoqueControler {
                 };
 
                 try {
-                   const sacola =   await this.itemEstoque.adicionarItemSacolaService(itemParaSaloca ,req, res)
+                   const sacola =   await adicionarItemSacolaService(itemParaSaloca ,req, res)
                     
                     console.log(sacola)
                      res.send(sacola)
@@ -132,7 +124,7 @@ class EstoqueControler {
               
     }
 
-    async valorItemSacolaTotal(req, res){
+export async function  valorItemSacolaTotal(req, res){
 
     }
 
@@ -158,7 +150,7 @@ class EstoqueControler {
 
     // o que sera ainda migrado para o novo padrão de item
 
-    async addestoque (req, res){
+export async function  addestoque (req, res){
         
 
         switch (req.body.categoria) {
@@ -177,7 +169,7 @@ class EstoqueControler {
             try {  
                 if (!req.body.tamanho){
                     res.status(400).send({Erro: "Não foi enviada a propriedade de tamanho"})
-                } else{ await this.coleiraService.addColeira( coleiraLT)}
+                } else{ await addColeira( coleiraLT)}
 
                 
 
@@ -203,7 +195,7 @@ class EstoqueControler {
                 req.body.codigoDeBarras)
                                     
                         try {
-                            await this.racoesService.addRacao(racaoLT )
+                            await addRacao(racaoLT )
                            
                             res.json(racaoLT)
                         } catch (e) {
@@ -220,35 +212,35 @@ class EstoqueControler {
            //qqq
     };
     
-    async excluiRacao(req, res){
-            await this.racoesService.excluiRacao(req.body._id)
+export async function  excluiRacao(req, res){
+            await excluiRacao(req.body._id)
              res.send('excluido com sucesso')
          
     };
 
-    async alterarRacao(req, res) {
-            await this.racoesService.alterarRacao(req.body)
+export async function  alterarRacao(req, res) {
+            await alterarRacao(req.body)
             res.send('estoque alterado')
         
     };
 
-    async buscarTodasColeiras(req, res){
+export async function  buscarTodasColeiras(req, res){
         
-        const coleirasRetornadas = await this.coleiraService.buscarTodasColeiras()
+        const coleirasRetornadas = await buscarTodasColeiras()
         res.json(coleirasRetornadas) 
         return coleirasRetornadas
     }
 
-    async buscarTodasRacoes(req, res) {
+export async function  buscarTodasRacoes(req, res) {
         
-            const racoesRetornadas = await this.racoesService.buscarTodasRacoes()
+            const racoesRetornadas = await buscarTodasRacoes()
             res.json(racoesRetornadas)
             return racoesRetornadas
         
     };
 
-    async buscaUmaRacao(req, res){
-            const racaoUN =  await this.racoesService.buscarRacao(req.body.codigoDeBarras, res)
+export async function  buscaUmaRacao(req, res){
+            const racaoUN =  await buscarRacao(req.body.codigoDeBarras, res)
             const respost = racaoUN
             console.log(respost)
      
@@ -257,8 +249,8 @@ class EstoqueControler {
 
     };
 
-    async buscaUmaColeira(req, res){
-        const coleiraUN =  await this.racoesService.buscarRacao(req.codigoDeBarras, res)
+export async function  buscaUmaColeira(req, res){
+        const coleiraUN =  await buscarRacao(req.codigoDeBarras, res)
        const respostColeira = coleiraUN
        
       
@@ -274,19 +266,13 @@ class EstoqueControler {
     
 
 
-    async buscaTodoEstoque (req, res){
+export async function  buscaTodoEstoque (req, res){
         
       //this.buscarTodasColeiras(req, res) 
-       let e = this.buscarTodasRacoes(req, res) 
-       let a = await this.buscarTodasColeiras(req, res) 
+       let e = buscarTodasRacoes(req, res) 
+       let a = await buscarTodasColeiras(req, res) 
         
         
     }
 
         
-    
-}
-
-
-
-export default  EstoqueControler

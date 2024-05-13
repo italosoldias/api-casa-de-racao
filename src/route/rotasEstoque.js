@@ -1,53 +1,88 @@
 import express from 'express';
 
 
-import EstoqueControler from '../controladores/ControladorEstoque.js';
+import {adicionarItem,validaReq,buscaTodoEstoque,buscaTodosItens,buscaItem,alterarQunatidadeItemEstoque,alterarCadastroItemEstoque,adicionarItemSacola,valorItemSacolaTotal} from '../controladores/ControladorEstoque.js';
+
+
+ const routerEstoque = express.Router();
+
+function carregaRotas(){
+
+
+    routerEstoque.post('/estoque-i', validaReq)
+    routerEstoque.get('/estoque-b', buscaItem)
+    routerEstoque.put('/estoque-a',  alterarCadastroItemEstoque)
+    
+    routerEstoque.put('/estoque-sob',  alterarQunatidadeItemEstoque)
+    routerEstoque.get("/estoque-buscatudo",  buscaTodosItens)
+    routerEstoque.post('/estoque/sacola',  adicionarItemSacola)
 
 
 
 
-class EstoqueRota{
-
-    constructor(){
-        this.router = express.Router();
-        this.estoqueControler = new EstoqueControler()
-        this.carregaRotas()
-    }
 
 
     
-    carregaRotas(){
 
+   
+    
+    routerEstoque.get('/estoque',  buscaTodoEstoque )
+    // implementar um metodo para buscar todo o estoque
+    
+    routerEstoque.post('/estoque',  validaReq )
 
-        this.router.post('/estoque-i', this.estoqueControler.validaReq.bind(this.estoqueControler))
-        this.router.get('/estoque-b', this.estoqueControler.buscaItem.bind(this.estoqueControler))
-        this.router.put('/estoque-a', this.estoqueControler.alterarCadastroItemEstoque.bind(this.estoqueControler))
-        this.router.get('/estoque-c', this.estoqueControler.buscaUmaRacao.bind(this.estoqueControler) )
-        this.router.put('/estoque-sob', this.estoqueControler.alterarQunatidadeItemEstoque.bind(this.estoqueControler))
-        this.router.get("/estoque-buscatudo", this.estoqueControler.buscarTodosItens.bind(this.estoqueControler))
-        this.router.post('/estoque/sacola', this.estoqueControler.adicionarItemSacola.bind(this.estoqueControler))
+   
 
-
-
-
-
-
-        this.router.get('/racao', this.estoqueControler.buscarTodasRacoes.bind(this.estoqueControler) )
-
-        this.router.get('/coleira', this.estoqueControler.buscarTodasColeiras.bind(this.estoqueControler))
-        
-        this.router.get('/estoque', this.estoqueControler.buscaTodoEstoque.bind(this.estoqueControler) )
-        // implementar um metodo para buscar todo o estoque
-        
-        this.router.post('/estoque', this.estoqueControler.validaReq.bind(this.estoqueControler) )
-
-        this.router.put('/racao', this.estoqueControler.alterarRacao.bind(this.estoqueControler))
-
-        this.router.delete('/estoque', this.estoqueControler.excluiRacao.bind(this.estoqueControler) )
-
-        }
+   
 
 }
+
+carregaRotas()
+
+export {routerEstoque}
+
+// class EstoqueRota{
+
+//     constructor(){
+//         routerEstoque = express.Router();
+        
+//         this.carregaRotas()
+//     }
+
+
+    
+//     carregaRotas(){
+
+
+//         routerEstoque.post('/estoque-i', validaReq())
+//         routerEstoque.get('/estoque-b', buscaItem())
+//         routerEstoque.put('/estoque-a',  alterarCadastroItemEstoque())
+//         routerEstoque.get('/estoque-c',  buscaUmaRacao() )
+//         routerEstoque.put('/estoque-sob',  alterarQunatidadeItemEstoque())
+//         routerEstoque.get("/estoque-buscatudo",  buscaTodosItens())
+//         routerEstoque.post('/estoque/sacola',  adicionarItemSacola())
+
+
+
+
+
+
+//         routerEstoque.get('/racao',  buscarTodasRacoes() )
+
+//         routerEstoque.get('/coleira',  buscarTodasColeiras())
+        
+//         routerEstoque.get('/estoque',  buscaTodoEstoque() )
+//         // implementar um metodo para buscar todo o estoque
+        
+//         routerEstoque.post('/estoque',  validaReq() )
+
+//         routerEstoque.put('/racao',  alterarRacao())
+
+//         routerEstoque.delete('/estoque',  excluiRacao() )
+
+//         }
+
+// }
 
 
 
@@ -79,4 +114,4 @@ class EstoqueRota{
 // })
 
 
-export default  new EstoqueRota().router
+// export default  new EstoqueRota().router

@@ -2,38 +2,54 @@ import express from'express';
  
 //const Usuario = require('../model/usuarios.js');
 import UsuarioControler from'../controladores/ControladorUsuario.js';
+const routerUsuario = express.Router();
+const usuarioControler = new UsuarioControler()
+// this.carregadorRotas()
 
+function carregadorRotas(){
 
-
-class UsuarioRotas{
-
-    constructor(){
-        this.router = express.Router();
-        this.usuarioControler = new UsuarioControler()
-        this.carregadorRotas()
-    }
+   routerUsuario.get('/usuario', usuarioControler.buscarTodosUsuarios.bind(usuarioControler))
+   routerUsuario.get('/usuario:id', usuarioControler.buscarUsuario.bind(usuarioControler))
     
-    carregadorRotas(){
-
-        this.router.get('/usuario', this.usuarioControler.buscarTodosUsuarios.bind(this.usuarioControler))
-        this.router.get('/usuario:id', this.usuarioControler.buscarUsuario.bind(this.usuarioControler))
-        
-        this.router.post('/usuario', this.usuarioControler.addUsuario.bind(this.usuarioControler))
-        this.router.post('/autenticacao', this.usuarioControler.autenticacaoUsuario.bind(this.usuarioControler) )
+   routerUsuario.post('/usuario', usuarioControler.addUsuario.bind(usuarioControler))
+   routerUsuario.post('/autenticacao', usuarioControler.autenticacaoUsuario.bind(usuarioControler) )
 
 
-        this.router.put('/usuario', this.usuarioControler.alterarUsuario.bind(this.usuarioControler))
-        
-        this.router.delete('/usuario', this.usuarioControler.excluirUsuario.bind(this.usuarioControler))
-        
-    }
-
-
-
+   routerUsuario.put('/usuario', usuarioControler.alterarUsuario.bind(usuarioControler))
+    
+   routerUsuario.delete('/usuario', usuarioControler.excluirUsuario.bind(usuarioControler))
+    
 }
 
+// class UsuarioRotas{
+
+//     constructor(){
+//        routerUsuario = express.Router();
+//         usuarioControler = new UsuarioControler()
+//         this.carregadorRotas()
+//     }
+    
+//     carregadorRotas(){
+
+//        routerUsuario.get('/usuario', usuarioControler.buscarTodosUsuarios.bind(usuarioControler))
+//        routerUsuario.get('/usuario:id', usuarioControler.buscarUsuario.bind(usuarioControler))
+        
+//        routerUsuario.post('/usuario', usuarioControler.addUsuario.bind(usuarioControler))
+//        routerUsuario.post('/autenticacao', usuarioControler.autenticacaoUsuario.bind(usuarioControler) )
+
+
+//        routerUsuario.put('/usuario', usuarioControler.alterarUsuario.bind(usuarioControler))
+        
+//        routerUsuario.delete('/usuario', usuarioControler.excluirUsuario.bind(usuarioControler))
+        
+//     }
 
 
 
+// }
 
-export default  new UsuarioRotas().router
+
+
+carregadorRotas()
+
+export {routerUsuario}

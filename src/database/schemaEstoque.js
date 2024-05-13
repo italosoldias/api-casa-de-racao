@@ -8,13 +8,13 @@ class DinamicoBancoMongo{
         this.model =  ModeloItem
     };
 
-    addItemBanco(reqObjetocompleto, error){
+    addItemBanco(reqObjetocompleto){
        
         try {
-            this.model.create(reqObjetocompleto, error)
+            this.model.create(reqObjetocompleto)
             
         } catch (erro ) {
-            return error
+            return erro
         }
     };
 
@@ -25,6 +25,7 @@ class DinamicoBancoMongo{
     };
 
 
+     
      buscarItemBanco(paramBusca, valorBusca) {       
         
         const paramBuscaSet = paramBusca
@@ -51,7 +52,7 @@ class DinamicoBancoMongo{
 
     alterarCadastroItemBanco(item){
         const queryItemAlteracao = {codigoDeBarras:item.codigoDeBarras}
-        const promeseAlteraItem = this.model.findOneAndUpdate(queryItemAlteracao , item).exec()
+        const promeseAlteraItem = this.model.findOneAndUpdate(item.codigoDeBarras , item).exec()
         return promeseAlteraItem
     };
     

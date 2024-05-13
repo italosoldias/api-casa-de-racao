@@ -1,4 +1,4 @@
-import Item from './ClassItem.js';
+import Item from "./ClassItem.js";
 
 
 class Racao extends Item {
