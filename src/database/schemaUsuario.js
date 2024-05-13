@@ -33,6 +33,7 @@ class UsuarioRepoMongo{
 
                     const hashAltera = await  bcryptjs.hash( usuario.senha, 10)
 
+                    
                     const seraMudado2 = {nome : usuario.nome,
                                         senha: hashAltera}
                     const promiseAlterarUsuario = await this.model.findOneAndUpdate(queryUsuarioAltera , seraMudado2 ).exec()

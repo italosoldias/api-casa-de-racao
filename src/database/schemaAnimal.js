@@ -47,7 +47,14 @@ export async function buscaAnimalIdAnimalBanco (idAnimal) {
     return consultaNomeAnimal
  }
 
-//  export async function buscaAnimalIdTutorBanco (idtutor) {
-//     const parametroBuscaAnimalIdTutorBanco = {idtutor}
-//     const consultaAnimalIdtutor = bancoAnimal.
-//  }
+ export async function buscaAnimalIdTutorBanco (idTutor) {
+    const parametroBuscaAnimalIdTutorBanco = {idTutor}
+    const consultaAnimalIdtutor = await bancoAnimal.find(parametroBuscaAnimalIdTutorBanco)
+    return consultaAnimalIdtutor
+ }
+
+ export async function alteraAnimalBanco(animal) {
+    const parametroBuscaAlteracao =  {idAnimal: animal.idAnimal}
+    const AlteracaoAnimal = await bancoAnimal.findOneAndUpdate(parametroBuscaAlteracao, animal).exec()
+    return AlteracaoAnimal
+ }

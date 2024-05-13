@@ -1,4 +1,4 @@
-import { addAnimalBanco,buscaAnimalIdAnimalBanco, buscaAnimalNomeAnimalBanco } from "../database/schemaAnimal.js";
+import { alteraAnimalBanco,addAnimalBanco,buscaAnimalIdTutorBanco,buscaAnimalIdAnimalBanco, buscaAnimalNomeAnimalBanco } from "../database/schemaAnimal.js";
 
 
 export async function adicionaAnimalService(animal){
@@ -22,13 +22,26 @@ export async function buscaAnimalService(parametroPesquisaAnimal) {
         
         let animalRetorno = await buscaAnimalIdAnimalBanco(parametroAnimal.idAnimal)
         return animalRetorno
+    } if (parametroAnimal.idTutor != null || undefined) { 
+        let animalRetorno = await buscaAnimalIdTutorBanco(parametroAnimal.idTutor)
+        return animalRetorno
     } else  {
         let animalRetorno = await buscaAnimalNomeAnimalBanco(parametroAnimal.nomeAnimal)
         return animalRetorno
     } 
-    // else {parametroAnimal.nome != null || undefined)
-    //     let animalRetorno = await buscaAnimalIdTutorAnimalBanco(parametroAnimal.IdTutor)
-    //     return animalRetorno
-    // }
+     
 
+}
+
+export async function altereAnimalService(animal) {
+
+    // buscaAnimalIdAnimalBanco(animal)
+    const alteraAnimalCadastrado = await alteraAnimalBanco(animal)
+    if (alteraAnimalCadastrado != null || undefined) {
+        return alteraAnimalCadastrado
+    } else {
+        
+        throw new Error ('Não foi possivel alterar o cadastro do animal' )
+    }
+    
 }

@@ -26,7 +26,10 @@ const AnimalSchema = new mongoose.Schema ({
             required : true,
         },   
 
-        
+        idade: {
+            type: Number,
+            required : false,
+        },
         
 
         peso : {
@@ -43,6 +46,11 @@ const AnimalSchema = new mongoose.Schema ({
             type : String,
             required : true,
         },
+
+        imagem: {
+            type: String,
+            required: false
+        }
 
        
 

@@ -4,6 +4,7 @@ import ManegeDB from './database/ManegeDB.js';
 import {routerUsuario} from './route/rotasUsuarios.js';
 import {routerEstoque} from './route/rotasEstoque.js';
 import {rotaAnimal} from './route/rotasAnimal.js'
+import { rotaTutor } from './route/rotaTutor.js';
 import dotenv from 'dotenv/config.js'
 import RotaAutenticacao from './route/rotaAutenticacao.js';
 
@@ -16,6 +17,7 @@ export default function start () {
         //this.app.use(RotaAutenticacao)
         app.use('/', routerUsuario )
         app.use('/', rotaAnimal  )
+        app.use('/',rotaTutor)
         // app.use('/',RotaAutenticacao, routerEstoque )
         app.use('/', routerEstoque)
 

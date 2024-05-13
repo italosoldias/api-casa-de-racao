@@ -52,7 +52,7 @@ class DinamicoBancoMongo{
 
     alterarCadastroItemBanco(item){
         const queryItemAlteracao = {codigoDeBarras:item.codigoDeBarras}
-        const promeseAlteraItem = this.model.findOneAndUpdate(queryItemAlteracao , item).exec()
+        const promeseAlteraItem = this.model.findOneAndUpdate(item.codigoDeBarras , item).exec()
         return promeseAlteraItem
     };
     
