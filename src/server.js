@@ -7,11 +7,12 @@ import {rotaAnimal} from './route/rotasAnimal.js'
 import { rotaTutor } from './route/rotaTutor.js';
 import dotenv from 'dotenv/config.js'
 import RotaAutenticacao from './route/rotaAutenticacao.js';
-
+import cors from 'cors'
 const app = express();
 
 export default function start () {
         app.use(express.json());
+        app.use(cors())
         app.use(express.urlencoded({ extended : false}));
         app.listen(process.env.SERVICE_PORTA)
         //this.app.use(RotaAutenticacao)
