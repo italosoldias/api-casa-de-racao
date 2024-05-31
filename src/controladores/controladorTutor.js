@@ -10,12 +10,14 @@ export async function adicionarTutorControlador(req,res){
         senha : req.body.senha
     }
     
+    console.log(tutor)
     
 
     try {
         const adiciona = await adicionaTutorService(tutor)
         res.json(adiciona)
     } catch (error) {
+        console.log(error)
         return  res.status(400).send({Erro: "hove um problema " + error.message })
     }
     

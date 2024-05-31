@@ -27,7 +27,7 @@ const TutorSchema = new mongoose.Schema ({
         
         senha : {
             type : String,
-            required  : true,
+            required  : false,
             select: true,
             
         },
@@ -53,9 +53,14 @@ TutorSchema.loadClass(Tutor);
 // UsuarioSchema.pre
 
 TutorSchema.pre('save', async function(next){
-    const hashAdd = await bcryptjs.hash(this.senha, 10)
-    this.senha = hashAdd
-    next()
+    if(this.senha != null || undefined) {
+
+        const hashAdd = await bcryptjs.hash(this.senha, 10)
+        this.senha = hashAdd
+        next()
+    }else{
+        next()
+    }
 })
 const TutorModel = mongoose.model('Tutor', TutorSchema);
 

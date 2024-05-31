@@ -1,5 +1,7 @@
 import express from 'express';
 import mongoose from'mongoose';
+import bodyParser  from'body-parser';
+import cors from 'cors'
 import ManegeDB from './database/ManegeDB.js';
 import {routerUsuario} from './route/rotasUsuarios.js';
 import {routerEstoque} from './route/rotasEstoque.js';
@@ -11,6 +13,8 @@ import RotaAutenticacao from './route/rotaAutenticacao.js';
 const app = express();
 
 export default function start () {
+        app.use(bodyParser.urlencoded({ limit: '500mb'}))
+        app.use(cors())
         app.use(express.json());
         app.use(express.urlencoded({ extended : false}));
         app.listen(process.env.SERVICE_PORTA)
