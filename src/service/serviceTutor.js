@@ -4,7 +4,7 @@ export async function adicionaTutorService (tutor){
 
     const existeTutor = await buscarTutorIdBanco(tutor.idTutor)
     if (existeTutor != null || undefined) {
-        throw new Error ('Esse Id tutor ja existe !!! ')
+        throw new Error ('Esse Id tutor ja existe !!!')
     } else {
         const adicionaTutor = await adicionarTutorBanco(tutor)
         return adicionaTutor

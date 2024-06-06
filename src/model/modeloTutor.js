@@ -59,6 +59,7 @@ TutorSchema.pre('save', async function(next){
         this.senha = hashAdd
         next()
     }else{
+        this.senha = null
         next()
     }
 })

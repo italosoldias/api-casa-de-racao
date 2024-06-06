@@ -17,7 +17,10 @@ export async function adicionarTutorControlador(req,res){
         const adiciona = await adicionaTutorService(tutor)
         res.json(adiciona)
     } catch (error) {
-        console.log(error)
+        
+       if(error.message == "Esse Id tutor ja existe !!!"){
+        return  res.status(402).send({Erro: "hove um problema " + error.message })
+       }
         return  res.status(400).send({Erro: "hove um problema " + error.message })
     }
     
