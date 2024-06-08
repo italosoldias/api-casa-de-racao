@@ -13,7 +13,8 @@ import RotaAutenticacao from './route/rotaAutenticacao.js';
 const app = express();
 
 export default function start () {
-        app.use(bodyParser.urlencoded({ limit: '500mb'}))
+        app.use(bodyParser.urlencoded({ limit: '995000mb'}))
+        app.use(express.json({ limit: '995000mb' }))
         app.use(cors())
         app.use(express.json());
         app.use(express.urlencoded({ extended : false}));
