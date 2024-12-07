@@ -50,6 +50,10 @@ const AnimalSchema = new mongoose.Schema ({
         imagem: {
             type: String,
             required: false
+        },
+        anexos: {
+            type: Array,
+            required: false
         }
 
        

@@ -15,7 +15,8 @@ export async function adicionaAnimalControlador(req,res){
         idade: req.body.idade,
         raca: req.body.raca,
         especie: req.body.especie,
-        imagem: req.body.imagem
+        imagem: req.body.imagem,
+        anexos: req.body.anexos
 
     }
 
